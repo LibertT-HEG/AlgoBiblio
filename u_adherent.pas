@@ -5,18 +5,18 @@ INTERFACE
 		
 	TYPE
 	
-		Tadresse = RECORD
-			rue : STRING;
-			numeroRue : String;
-			npa : String;
-			ville : STRING;
-			pays : STRING;
+		Tadresse = record
+			rue : string;
+			numeroRue : string;
+			npa : string;
+			ville : string;
+			pays : string;
 		END;
 		
-		Tadherent = RECORD
-		    codeAdherent : STRING;
-			nom : STRING;
-			prenom : STRING;
+		Tadherent = record
+		    codeAdherent : string;
+			nom : string;
+			prenom : string;
 			adresse : Tadresse;
 		END;	
 		
@@ -30,8 +30,16 @@ INTERFACE
 IMPLEMENTATION
 	
 	FUNCTION saisirAdherent():Tadherent;
+	VAR
+		a : Tadherent;
 	BEGIN
-		
+		writeln('Code adherent : ');
+		readln(a.codeAdherent);
+		writeln('Nom : ');
+		readln(a.nom);
+		writeln('Prenom : ');
+		readln(a.prenom);
+		writeln('Adresse : ');
 	END;
 	
 	
