@@ -42,6 +42,19 @@ IMPLEMENTATION
 		writeln('Adresse : ');
 	END;
 	
+	// Affiche un message sous forme de titre entouré d'une séquence de caractères sur chaque côté
+	PROCEDURE afficherTitre(titre:string; sequence: string; repetition:integer);
+	VAR
+		ind : integer;
+		decoration : string;
+	BEGIN
+		decoration := '';
+		FOR ind := 0 TO repetition DO
+		BEGIN
+			decoration := decoration + sequence;
+		END;
+		Writeln(decoration, ' ', titre, ' ', decoration);
+	END;
 	
 	PROCEDURE afficherAdherent(adherent:Tadherent);
 	BEGIN
