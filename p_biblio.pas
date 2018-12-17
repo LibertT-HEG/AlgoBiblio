@@ -8,9 +8,7 @@ USES u_biblio, u_livre, u_adherent, crt;
 	
 	//Procedure chargeant d�j� quelques donn�es de base
 	PROCEDURE chargeDonneesInitiales(var biblio:Tbibliotheque; var adherent: Tadherent; var livre: Tlivre);
-	BEGIN
-
-	
+	BEGIN	
 		biblio.nomBiblio:='Arc Biblio';
 		biblio.adresse.rue:='Espace de l''Europe';
 		biblio.adresse.numeroRue:='21';
