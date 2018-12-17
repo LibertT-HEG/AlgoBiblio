@@ -17,7 +17,7 @@ USES u_biblio, u_livre, u_adherent, crt;
 		biblio.adresse.pays:='Suisse';
 	
 	
-		//TODO : à compléter avec quelques adhérents et quelques livres
+		//TODO : A completer avec quelques adherents et quelques livres
 		
 	END;
 
