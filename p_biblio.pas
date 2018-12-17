@@ -6,7 +6,7 @@ USES u_biblio, u_livre, u_adherent, crt;
 		u_livre.initUnite();
 	END;
 	
-	//Procedure chargeant déjà quelques données de base
+	//Procedure chargeant dï¿½jï¿½ quelques donnï¿½es de base
 	PROCEDURE chargeDonneesInitiales(var biblio:Tbibliotheque; var adherent: Tadherent; var livre: Tlivre);
 	BEGIN
 
@@ -19,7 +19,7 @@ USES u_biblio, u_livre, u_adherent, crt;
 		biblio.adresse.pays:='Suisse';
 	
 	
-		//TODO : à compléter avec quelques adhérents et quelques livres
+		//TODO : A completer avec quelques adherents et quelques livres
 		
 	END;
 
