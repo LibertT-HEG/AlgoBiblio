@@ -111,15 +111,23 @@ IMPLEMENTATION
 	
 	FUNCTION creerEmprunt(livre:Tlivre; adherent:Tadherent; date:Tdate):Temprunt;
 	BEGIN
-		compteurEmprunt := compteurEmprunt+1 // On ajoute un emprunt à notre compteur
+		compteurEmprunt := compteurEmprunt+1; // On ajoute un emprunt à notre compteur
 		creerEmprunt.numeroEmprunt := compteurEmprunt;
 		creerEmprunt.livre := livre;
-		creerEmprunt.dateEmprunt :0 date;
+		creerEmprunt.dateEmprunt := date;
 	END;
 	
 	PROCEDURE afficherEmprunt(emprunt:Temprunt);
 	BEGIN
-		
+		writeln('Numéro de l''emprunt : ', emprunt.numeroEmprunt);
+		writeln('Livre emprunté :');
+		writeln('- ISBN : ', emprunt.livre.isbn);
+		writeln('- Code auteur : ', emprunt.livre.codeAuteur);
+		writeln('- Nombre de pages : ', emprunt.livre.nbPages);
+		writeln('- Nombre d''exemplaires : ', emprunt.livre.nbExemplaires);
+		writeln('Emprunté par : ', emprunt.adherent.prenom, ' ', emprunt.adherent.nom);
+		writeln('Emprunté le : ', emprunt.date.jour,'.',emprunt.date.mois,'.',emprunt.date.annee);
+
 	END;
 	
 	PROCEDURE ajouterExemplaire(var livre:Tlivre);
