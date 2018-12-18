@@ -135,7 +135,7 @@ IMPLEMENTATION
 	
 	FUNCTION supprimerExemplaire(var livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts:INTEGER):BOOLEAN;
 	BEGIN
-		
+		supprimerExemplaire := false; // temp
 	END;
 	
 	FUNCTION compteExemplairesEmpruntes(livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):INTEGER;
