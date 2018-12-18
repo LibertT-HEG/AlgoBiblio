@@ -70,9 +70,26 @@ IMPLEMENTATION
 		
 	END;
 	
+	// Permet de savoir si la bibliothèque est ouverte ou non ! Elle est ouverte du mardi au samedi de 8h à 12h et de 14h à 20h, et le lundi de 14h à 18h !
 	FUNCTION estOuverte(jour:String; heure:INTEGER):BOOLEAN;
 	BEGIN
-		
+		estOuverte := false;
+
+		IF jour <> 'dimanche' THEN
+		BEGIN
+			IF jour <> 'lundi' THEN // du mardi au samedi
+			BEGIN
+				IF ((heure > 8) AND (heure < 12)) OR ((heure > 14) AND (heure < 20))
+					estOuverte := true;
+			END;
+			ELSE //si on est lundi
+			BEGIN
+				IF (heure > 14) AND (heure < 18) THEN
+					estOuverte := true;
+			END;
+		END;
+		ELSE
+			estOuverte := false;
 	END;
 	
 	FUNCTION ajouterNouveauLivre(var tabLivres : TypeTabLivres; var nbLivres : INTEGER; nouveauLivre : Tlivre) : BOOLEAN; 
