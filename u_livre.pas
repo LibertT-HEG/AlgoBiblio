@@ -111,10 +111,10 @@ IMPLEMENTATION
 	
 	FUNCTION creerEmprunt(livre:Tlivre; adherent:Tadherent; date:Tdate):Temprunt;
 	BEGIN
-		compteurEmprunt := compteurEmprunt+1 // On ajoute un emprunt à notre compteur
+		compteurEmprunt := compteurEmprunt + 1; // On ajoute un emprunt à notre compteur
 		creerEmprunt.numeroEmprunt := compteurEmprunt;
 		creerEmprunt.livre := livre;
-		creerEmprunt.dateEmprunt :0 date;
+		creerEmprunt.dateEmprunt := date;
 	END;
 	
 	PROCEDURE afficherEmprunt(emprunt:Temprunt);
@@ -149,11 +149,17 @@ IMPLEMENTATION
 	
 	FUNCTION compteEmpruntsParAdherent(tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER; adherent : Tadherent) : INTEGER;
 	VAR
-		
+		empruntAdherent : INTEGER;
+		ind : INTEGER;
 	BEGIN
-		
+		empruntAdherent := 0;
+		FOR ind := 0 TO nbEmprunts - 1 DO
+		BEGIN
+			IF tabEmprunt[ind].adherent.codeAdherent = adherent.codeAdherent THEN
+				empruntAdherent := empruntAdherent + 1;
+		END;
+		compteEmpruntsParAdherent := empruntAdherent;
 	END;
-
 
 	
 END.
