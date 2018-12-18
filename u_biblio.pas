@@ -55,7 +55,7 @@ INTERFACE
 	FUNCTION trouverEmpruntParNumero(tabEmprunts:TypeTabEmprunts; var nbEmprunts:INTEGER; var emprunt:Temprunt ;numero:INTEGER):BOOLEAN;
 	
 IMPLEMENTATION
-
+	// PHILIPPE
 	PROCEDURE initBiblio(var biblio:Tbibliotheque);
 	BEGIN
 		// données pourries pour le moment
@@ -104,13 +104,33 @@ IMPLEMENTATION
 	END;
 	
 	FUNCTION supprimerLivre(var tabLivres : TypeTabLivres; var nbLivres : INTEGER; livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):BOOLEAN;
+	VAR
+		ind : integer;
+		indiceLivre : integer;
 	BEGIN
-		
+		supprimerLivre := false;
+		indiceLivre := -1;
+		if not(u_livre.compteExemplairesEmpruntes(livre, tabEmprunt, nbEmprunts) > 0) then // TOUT DOUX: changer après implémentation de trouverIndiceEmprunt (?)
+			if trouverIndiceLivre(tabLivres, nbLivres, livre, indiceLivre) then
+			begin
+				for ind := indiceLivre to nbLivres - 1 do
+					tabLivres[ind] := tabLivres[ind + 1];
+				nbLivres := nbLivres - 1;
+				supprimerLivre := true;
+			end;
 	END;
-	
+
 	FUNCTION trouverIndiceLivre(tabLivres : TypeTabLivres; nbLivres : INTEGER; livre:Tlivre; var indiceRetour:INTEGER):BOOLEAN;
+	VAR
+		ind : integer;
 	BEGIN
-		
+		trouverIndiceLivre := false;
+		for ind := 0 to nbLivres - 1 do
+			if tabLivres[ind].isbn = livre.isbn then
+			begin
+				indiceRetour := ind;
+				trouverIndiceLivre := true;
+			end;
 	END;
 	
 	FUNCTION trouverLivreParISBN(tabLivres : TypeTabLivres; nbLivres : INTEGER; isbn:STRING; var livre:Tlivre):BOOLEAN;
