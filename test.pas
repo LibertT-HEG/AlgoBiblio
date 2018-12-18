@@ -1,5 +1,5 @@
 PROGRAM test;
-USES u_adherent, u_livre;
+USES u_adherent, u_livre, u_biblio;
 VAR
     dummyAdherent : Tadherent;
     dummyLivre : Tlivre;
