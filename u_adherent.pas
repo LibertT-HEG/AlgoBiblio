@@ -58,7 +58,10 @@ IMPLEMENTATION
 	
 	PROCEDURE afficherAdherent(adherent:Tadherent);
 	BEGIN
-		
+		afficherTitre('Adherent numero ' + adherent.codeAdherent, '=', 10);
+		writeln(adherent.prenom, ' ', adherent.nom);
+		writeln(adherent.adresse.rue, ' ', adherent.adresse.numeroRue);
+		writeln(adherent.adresse.npa, ' ', adherent.adresse.ville, '(', adherent.adresse.pays, ')');
 	END;
 
 END.
