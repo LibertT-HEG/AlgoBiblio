@@ -23,7 +23,7 @@ BEGIN
 
     afficherLivre(dummyLivre);
 
-    IF estOuverte() THEN
+    IF estOuverte('samedi', 12) THEN
         writeln('La bibliothèque est ouverte')
     ELSE
         writeln('La bibliothèque est fermée');

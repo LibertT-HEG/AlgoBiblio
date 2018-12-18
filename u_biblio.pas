@@ -62,7 +62,7 @@ IMPLEMENTATION
 		biblio.nomBiblio := 'Dummy Biblio';
 		biblio.nbLivres := 0;
 		biblio.nbEmprunts := 0;
-		biblio.nbAdherents :0;
+		biblio.nbAdherents := 0;
 	END;
 	
 	PROCEDURE afficherBibliotheque(biblio:Tbibliotheque);
@@ -79,15 +79,15 @@ IMPLEMENTATION
 		BEGIN
 			IF jour <> 'lundi' THEN // du mardi au samedi
 			BEGIN
-				IF ((heure > 8) AND (heure < 12)) OR ((heure > 14) AND (heure < 20))
+				IF ((heure >= 8) AND (heure < 12)) OR ((heure > 14) AND (heure < 20)) THEN
 					estOuverte := true;
-			END;
+			END
 			ELSE //si on est lundi
 			BEGIN
-				IF (heure > 14) AND (heure < 18) THEN
+				IF (heure >= 14) AND (heure < 18) THEN
 					estOuverte := true;
 			END;
-		END;
+		END
 		ELSE
 			estOuverte := false;
 	END;
