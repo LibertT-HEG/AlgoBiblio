@@ -3,20 +3,19 @@ INTERFACE
 	CONST
 		Cmax = 100;
 		
-	TYPE
-	
-		Tadresse = RECORD
-			rue : STRING;
-			numeroRue : String;
-			npa : String;
-			ville : STRING;
-			pays : STRING;
+	TYPE	
+		Tadresse = record
+			rue : string;
+			numeroRue : string;
+			npa : string;
+			ville : string;
+			pays : string;
 		END;
 		
-		Tadherent = RECORD
-		    codeAdherent : STRING;
-			nom : STRING;
-			prenom : STRING;
+		Tadherent = record
+		    codeAdherent : string;
+			nom : string;
+			prenom : string;
 			adresse : Tadresse;
 		END;	
 		
@@ -30,14 +29,51 @@ INTERFACE
 IMPLEMENTATION
 	
 	FUNCTION saisirAdherent():Tadherent;
+	VAR
+		a : Tadherent;
 	BEGIN
+		write('Code adherent : ');
+		readln(a.codeAdherent);
+		write('Nom : ');
+		readln(a.nom);
+		write('Prenom : ');
+		readln(a.prenom);
 		
+		writeln('Adresse : ');
+		write('Rue : ');
+		readln(a.adresse.rue);
+		write('Numero rue : ');
+		readln(a.adresse.numeroRue);
+		write('NPA : ');
+		readln(a.adresse.npa);
+		write('Ville : ');
+		readln(a.adresse.ville);
+		write('Pays : ');
+		readln(a.adresse.pays);
+
+		saisirAdherent := a;
 	END;
 	
+	// Affiche un message sous forme de titre entouré d'une séquence de caractères sur chaque côté
+	PROCEDURE afficherTitre(titre:string; sequence: string; repetition:integer);
+	VAR
+		ind : integer;
+		decoration : string;
+	BEGIN
+		decoration := '';
+		FOR ind := 0 TO repetition DO
+		BEGIN
+			decoration := decoration + sequence;
+		END;
+		Writeln(decoration, ' ', titre, ' ', decoration);
+	END;
 	
 	PROCEDURE afficherAdherent(adherent:Tadherent);
 	BEGIN
-		
+		afficherTitre('Adherent numero ' + adherent.codeAdherent, '=', 10);
+		writeln(adherent.prenom, ' ', adherent.nom);
+		writeln(adherent.adresse.rue, ' ', adherent.adresse.numeroRue);
+		writeln(adherent.adresse.npa, ' ', adherent.adresse.ville, '(', adherent.adresse.pays, ')');
 	END;
 
 END.
