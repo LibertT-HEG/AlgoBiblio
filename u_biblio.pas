@@ -119,7 +119,7 @@ IMPLEMENTATION
 	BEGIN
 		
 	END;
-	
+	// THIBAULT
 	FUNCTION emprunterLivre(var tabEmprunts:TypeTabEmprunts; var nbEmprunts:INTEGER; livre:Tlivre; adherent:Tadherent;dateEmprunt:Tdate):BOOLEAN;
 	BEGIN
 		
