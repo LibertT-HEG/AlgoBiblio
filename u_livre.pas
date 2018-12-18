@@ -65,9 +65,21 @@ IMPLEMENTATION
 	END;
 
 	FUNCTION saisirLivre(): Tlivre;
+	VAR
+		livre : Tlivre;
 	BEGIN
-		writeln('Saisir ISBN');
-		readln()
+		write('ISBN : ');
+		readln(livre.isbn);
+		write('Titre : ');
+		readln(livre.titre);
+		write('Code de l''auteur : ');
+		readln(livre.codeAuteur); // Test existe ?
+		write('Nombre de pages : ');
+		readln(livre.nbPages); // Test si c'est un nombre
+		write('Nombre d''exemplaires : ');
+		readln(livre.nbExemplaires); // Test si c'est un nombre
+
+		saisirLivre := livre;
 	END;
 	
 	PROCEDURE afficherLivre(livre:Tlivre);
