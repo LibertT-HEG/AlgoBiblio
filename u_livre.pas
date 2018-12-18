@@ -111,7 +111,10 @@ IMPLEMENTATION
 	
 	FUNCTION creerEmprunt(livre:Tlivre; adherent:Tadherent; date:Tdate):Temprunt;
 	BEGIN
-		
+		compteurEmprunt := compteurEmprunt+1 // On ajoute un emprunt à notre compteur
+		creerEmprunt.numeroEmprunt := compteurEmprunt;
+		creerEmprunt.livre := livre;
+		creerEmprunt.dateEmprunt :0 date;
 	END;
 	
 	PROCEDURE afficherEmprunt(emprunt:Temprunt);
