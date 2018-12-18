@@ -94,7 +94,13 @@ IMPLEMENTATION
 	
 	FUNCTION ajouterNouveauLivre(var tabLivres : TypeTabLivres; var nbLivres : INTEGER; nouveauLivre : Tlivre) : BOOLEAN; 
 	BEGIN
-		
+		ajouterNouveauLivre := FALSE;
+		IF nbLivres < u_livre.Cmax THEN
+		BEGIN
+			tabLivres[nbLivres] := nouveauLivre;
+			nbLivres := nbLivres + 1;
+			ajouterNouveauLivre := TRUE;
+		END;
 	END;
 	
 	FUNCTION supprimerLivre(var tabLivres : TypeTabLivres; var nbLivres : INTEGER; livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):BOOLEAN;
