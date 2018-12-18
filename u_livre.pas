@@ -64,13 +64,6 @@ IMPLEMENTATION
 		compteurEmprunt := 0;
 	END;
 
-	FUNCTION saisirLivre(): Tlivre;
-	VAR
-		livre : Tlivre;
-	BEGIN
-		
-	END;
-	
 	// Affiche un message sous forme de titre entouré d'une séquence de caractères sur chaque côté
 	// deja repetée dans deux fichiers différents faudra surement l'isoler dans un module à part
 	PROCEDURE afficherTitre(titre:string; sequence: string; repetition:integer);
@@ -86,6 +79,12 @@ IMPLEMENTATION
 		Writeln(decoration, ' ', titre, ' ', decoration);
 	END;
 
+	END;
+
+	FUNCTION saisirLivre(): Tlivre;
+	VAR
+		livre : Tlivre;
+	BEGIN
 		write('ISBN : ');
 		readln(livre.isbn);
 		write('Titre : ');
@@ -146,6 +145,8 @@ IMPLEMENTATION
 	END;
 	
 	FUNCTION compteEmpruntsParAdherent(tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER; adherent : Tadherent) : INTEGER;
+	VAR
+		
 	BEGIN
 		
 	END;
