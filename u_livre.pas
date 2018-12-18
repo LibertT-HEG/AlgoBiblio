@@ -130,12 +130,20 @@ IMPLEMENTATION
 	
 	PROCEDURE ajouterExemplaire(var livre:Tlivre);
 	BEGIN
-		
+		livre.nbExemplaires := livre.nbExemplaires+1;	
 	END;
 	
 	FUNCTION supprimerExemplaire(var livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts:INTEGER):BOOLEAN;
+	VAR
+		nbLivreEmprunt : INTEGER;
 	BEGIN
-		supprimerExemplaire := false; // temp
+		nbLivreEmprunt  := 0;
+		supprimerExemplaire := false;
+		if((estDisponible(livre,tabEmprunt,nbEmprunts)) then
+		begin
+			livre.nbExemplaires := livre.nbExemplaires-1;
+			supprimerExemplaire := true;
+		end;
 	END;
 	
 	FUNCTION compteExemplairesEmpruntes(livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):INTEGER;
