@@ -61,7 +61,7 @@ INTERFACE
 IMPLEMENTATION
 	PROCEDURE initUnite();
 	BEGIN
-		
+		compteurEmprunt := 0;
 	END;
 
 	FUNCTION saisirLivre(): Tlivre;
@@ -69,10 +69,28 @@ IMPLEMENTATION
 		
 	END;
 	
+	// Affiche un message sous forme de titre entouré d'une séquence de caractères sur chaque côté
+	// deja repetée dans deux fichiers différents faudra surement l'isoler dans un module à part
+	PROCEDURE afficherTitre(titre:string; sequence: string; repetition:integer);
+	VAR
+		ind : integer;
+		decoration : string;
+	BEGIN
+		decoration := '';
+		FOR ind := 0 TO repetition DO
+		BEGIN
+			decoration := decoration + sequence;
+		END;
+		Writeln(decoration, ' ', titre, ' ', decoration);
+	END;
 
-	
 	PROCEDURE afficherLivre(livre:Tlivre);
 	BEGIN
+		afficherTitre(livre.titre, '=', 10);
+		writeln('ISBN : ', livre.isbn);
+		writeln('Code auteur : ', livre.codeAuteur);
+		writeln('Nombre de pages : ', livre.nbPages);
+		writeln('Nombre d''exemplaires : ', livre.nbExemplaires);
 		
 	END;
 	
@@ -115,5 +133,7 @@ IMPLEMENTATION
 	BEGIN
 		
 	END;
+
+
 	
 END.
