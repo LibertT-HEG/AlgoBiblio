@@ -143,22 +143,31 @@ IMPLEMENTATION
 	END;
 	
 	FUNCTION compteExemplairesEmpruntes(livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):INTEGER;
+	VAR
+		nbEmpruntsLivre : INTEGER;
+		ind : INTEGER;
 	BEGIN
-		
+		nbEmpruntsLivre := 0;
+		FOR ind := 0 TO nbEmprunts - 1 DO
+		BEGIN
+			IF tabEmprunt[ind].livre.isbn = livre.isbn THEN
+				nbEmpruntsLivre := nbEmpruntsLivre + 1;
+		END;
+		compteEmpruntsParAdherent := nbEmpruntsLivre;
 	END;
 	
 	FUNCTION compteEmpruntsParAdherent(tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER; adherent : Tadherent) : INTEGER;
 	VAR
-		empruntAdherent : INTEGER;
+		nbEmpruntsAdherent : INTEGER;
 		ind : INTEGER;
 	BEGIN
-		empruntAdherent := 0;
+		nbEmpruntsAdherent := 0;
 		FOR ind := 0 TO nbEmprunts - 1 DO
 		BEGIN
 			IF tabEmprunt[ind].adherent.codeAdherent = adherent.codeAdherent THEN
-				empruntAdherent := empruntAdherent + 1;
+				nbEmpruntsAdherent := nbEmpruntsAdherent + 1;
 		END;
-		compteEmpruntsParAdherent := empruntAdherent;
+		compteEmpruntsParAdherent := nbEmpruntsAdherent;
 	END;
 
 	
