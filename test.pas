@@ -18,7 +18,7 @@ BEGIN
     dummyLivre.isbn := '473f34z389475fh';
     dummyLivre.titre := 'George et ses copains';
     dummyLivre.codeAuteur := '4B1780L';
-    dummyLivre.nbPages := 80085;
+    dummyLivre.nbPages := 885;
     dummyLivre.nbExemplaires := 1;
 
     afficherLivre(dummyLivre);
