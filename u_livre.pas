@@ -140,16 +140,6 @@ IMPLEMENTATION
 		
 	END;
 	
-	FUNCTION estDisponible(livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts:INTEGER):BOOLEAN; 
-	BEGIN
-		
-	END;
-	
-	FUNCTION compteExemplairesDisponibles(livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):INTEGER; // Retourne le nombre d'exemplaires encore disponibles		
-	BEGIN
-		
-	END;
-	
 	FUNCTION compteExemplairesEmpruntes(livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):INTEGER;
 	VAR
 		nbEmpruntsLivre : INTEGER;
@@ -162,6 +152,19 @@ IMPLEMENTATION
 				nbEmpruntsLivre := nbEmpruntsLivre + 1;
 		END;
 		compteEmpruntsParAdherent := nbEmpruntsLivre;
+	END;
+
+	FUNCTION compteExemplairesDisponibles(livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):INTEGER; // Retourne le nombre d'exemplaires encore disponibles	
+	VAR
+		nbEmpruntsLivre : INTEGER;
+	BEGIN
+		nbEmpruntsLivre := compteExemplairesEmpruntes(livre, tabEmprunt, nbEmprunts);
+		compteExemplairesDisponibles := livre.nbExemplaires - nbEmpruntsLivre;
+	END;
+
+	FUNCTION estDisponible(livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts:INTEGER):BOOLEAN; 
+	BEGIN
+		
 	END;
 	
 	FUNCTION compteEmpruntsParAdherent(tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER; adherent : Tadherent) : INTEGER;
