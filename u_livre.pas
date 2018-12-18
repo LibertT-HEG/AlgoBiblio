@@ -61,15 +61,14 @@ INTERFACE
 IMPLEMENTATION
 	PROCEDURE initUnite();
 	BEGIN
-		
+		compteurEmprunt := 0;
 	END;
 
 	FUNCTION saisirLivre(): Tlivre;
 	BEGIN
-		
+		writeln('Saisir ISBN');
+		readln()
 	END;
-	
-
 	
 	PROCEDURE afficherLivre(livre:Tlivre);
 	BEGIN
