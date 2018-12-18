@@ -23,7 +23,10 @@ BEGIN
 
     afficherLivre(dummyLivre);
 
-
+    IF estOuverte() THEN
+        writeln('La bibliothèque est ouverte')
+    ELSE
+        writeln('La bibliothèque est fermée');
 
 
 END.
