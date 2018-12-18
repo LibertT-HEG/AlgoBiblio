@@ -127,17 +127,24 @@ IMPLEMENTATION
 		writeln('- Nombre d''exemplaires : ', emprunt.livre.nbExemplaires);
 		writeln('Emprunté par : ', emprunt.adherent.prenom, ' ', emprunt.adherent.nom);
 		writeln('Emprunté le : ', emprunt.date.jour,'.',emprunt.date.mois,'.',emprunt.date.annee);
-
 	END;
 	
 	PROCEDURE ajouterExemplaire(var livre:Tlivre);
 	BEGIN
-		
+		livre.nbExemplaires := livre.nbExemplaires+1;	
 	END;
 	
 	FUNCTION supprimerExemplaire(var livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts:INTEGER):BOOLEAN;
+	VAR
+		nbLivreEmprunt : INTEGER;
 	BEGIN
-		
+		nbLivreEmprunt  := 0;
+		supprimerExemplaire := false;
+		if((estDisponible(livre,tabEmprunt,nbEmprunts)) then
+		begin
+			livre.nbExemplaires := livre.nbExemplaires-1;
+			supprimerExemplaire := true;
+		end;
 	END;
 	
 	FUNCTION estDisponible(livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts:INTEGER):BOOLEAN; 
