@@ -139,9 +139,9 @@ IMPLEMENTATION
 	// THIBAULT
 	FUNCTION emprunterLivre(var tabEmprunts:TypeTabEmprunts; var nbEmprunts:INTEGER; livre:Tlivre; adherent:Tadherent;dateEmprunt:Tdate):BOOLEAN;
 	BEGIN
-		IF estDisponible(livre, tabEmprunt, nbEmprunts) THEN
+		IF estDisponible(livre, tabEmprunts, nbEmprunts) THEN
 		BEGIN		
-			tabEmprunt[nbEmprunts] := creerEmprunt(livre, adhernt, dateEmprunt);
+			tabEmprunts[nbEmprunts] := creerEmprunt(livre, adherent, dateEmprunt);
 			nbEmprunts := nbEmprunts + 1;
 			emprunterLivre := true;
 		END
