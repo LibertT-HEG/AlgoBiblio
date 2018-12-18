@@ -3,8 +3,7 @@ INTERFACE
 	CONST
 		Cmax = 100;
 		
-	TYPE
-	
+	TYPE	
 		Tadresse = record
 			rue : string;
 			numeroRue : string;
@@ -33,13 +32,26 @@ IMPLEMENTATION
 	VAR
 		a : Tadherent;
 	BEGIN
-		writeln('Code adherent : ');
+		write('Code adherent : ');
 		readln(a.codeAdherent);
-		writeln('Nom : ');
+		write('Nom : ');
 		readln(a.nom);
-		writeln('Prenom : ');
+		write('Prenom : ');
 		readln(a.prenom);
+		
 		writeln('Adresse : ');
+		write('Rue : ');
+		readln(a.adresse.rue);
+		write('Numero rue : ');
+		readln(a.adresse.numeroRue);
+		write('NPA : ');
+		readln(a.adresse.npa);
+		write('Ville : ');
+		readln(a.adresse.ville);
+		write('Pays : ');
+		readln(a.adresse.pays);
+
+		saisirAdherent := a;
 	END;
 	
 	// Affiche un message sous forme de titre entouré d'une séquence de caractères sur chaque côté
