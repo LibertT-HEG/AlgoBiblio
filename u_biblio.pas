@@ -138,6 +138,9 @@ IMPLEMENTATION
 	END;
 	
 	FUNCTION trouverIndiceEmprunt(tabEmprunts:TypeTabEmprunts; nbEmprunts:INTEGER; emprunt:Temprunt; var indiceRetour : INTEGER):BOOLEAN; 
+	VAR
+		ind : INTEGER;
+		trouve : BOOLEAN;
 	BEGIN
 		
 	END;
