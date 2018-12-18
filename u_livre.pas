@@ -79,8 +79,6 @@ IMPLEMENTATION
 		Writeln(decoration, ' ', titre, ' ', decoration);
 	END;
 
-	END;
-
 	FUNCTION saisirLivre(): Tlivre;
 	VAR
 		livre : Tlivre;
@@ -126,7 +124,8 @@ IMPLEMENTATION
 		writeln('- Nombre de pages : ', emprunt.livre.nbPages);
 		writeln('- Nombre d''exemplaires : ', emprunt.livre.nbExemplaires);
 		writeln('Emprunté par : ', emprunt.adherent.prenom, ' ', emprunt.adherent.nom);
-		writeln('Emprunté le : ', emprunt.date.jour,'.',emprunt.date.mois,'.',emprunt.date.annee);
+		writeln('Emprunté le : ', emprunt.dateEmprunt.jour,'.',emprunt.dateEmprunt.mois,'.',emprunt.dateEmprunt.annee);
+
 	END;
 	
 	PROCEDURE ajouterExemplaire(var livre:Tlivre);
@@ -147,28 +146,46 @@ IMPLEMENTATION
 		end;
 	END;
 	
+	FUNCTION compteExemplairesEmpruntes(livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):INTEGER;
+	VAR
+		nbEmpruntsLivre : INTEGER;
+		ind : INTEGER;
+	BEGIN
+		nbEmpruntsLivre := 0;
+		FOR ind := 0 TO nbEmprunts - 1 DO
+		BEGIN
+			IF tabEmprunt[ind].livre.isbn = livre.isbn THEN
+				nbEmpruntsLivre := nbEmpruntsLivre + 1;
+		END;
+		compteExemplairesEmpruntes := nbEmpruntsLivre;
+	END;
+
+	FUNCTION compteExemplairesDisponibles(livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):INTEGER; // Retourne le nombre d'exemplaires encore disponibles	
+	VAR
+		nbEmpruntsLivre : INTEGER;
+	BEGIN
+		nbEmpruntsLivre := compteExemplairesEmpruntes(livre, tabEmprunt, nbEmprunts);
+		compteExemplairesDisponibles := livre.nbExemplaires - nbEmpruntsLivre;
+	END;
+
 	FUNCTION estDisponible(livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts:INTEGER):BOOLEAN; 
 	BEGIN
-		
-	END;
-	
-	FUNCTION compteExemplairesDisponibles(livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):INTEGER; // Retourne le nombre d'exemplaires encore disponibles		
-	BEGIN
-		
-	END;
-	
-	FUNCTION compteExemplairesEmpruntes(livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):INTEGER;
-	BEGIN
-		
+		estDisponible := compteExemplairesDisponibles(livre, tabEmprunt, nbEmprunts) > 0;
 	END;
 	
 	FUNCTION compteEmpruntsParAdherent(tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER; adherent : Tadherent) : INTEGER;
 	VAR
-		
+		nbEmpruntsAdherent : INTEGER;
+		ind : INTEGER;
 	BEGIN
-		
+		nbEmpruntsAdherent := 0;
+		FOR ind := 0 TO nbEmprunts - 1 DO
+		BEGIN
+			IF tabEmprunt[ind].adherent.codeAdherent = adherent.codeAdherent THEN
+				nbEmpruntsAdherent := nbEmpruntsAdherent + 1;
+		END;
+		compteEmpruntsParAdherent := nbEmpruntsAdherent;
 	END;
-
 
 	
 END.

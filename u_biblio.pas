@@ -58,7 +58,11 @@ IMPLEMENTATION
 
 	PROCEDURE initBiblio(var biblio:Tbibliotheque);
 	BEGIN
-		
+		// données pourries pour le moment
+		biblio.nomBiblio := 'Dummy Biblio';
+		biblio.nbLivres := 0;
+		biblio.nbEmprunts := 0;
+		biblio.nbAdherents :0;
 	END;
 	
 	PROCEDURE afficherBibliotheque(biblio:Tbibliotheque);
