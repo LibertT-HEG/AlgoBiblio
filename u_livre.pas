@@ -164,7 +164,7 @@ IMPLEMENTATION
 
 	FUNCTION estDisponible(livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts:INTEGER):BOOLEAN; 
 	BEGIN
-		
+		estDisponible := compteExemplairesDisponibles(livre, tabEmprunt, nbEmprunts) > 0;
 	END;
 	
 	FUNCTION compteEmpruntsParAdherent(tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER; adherent : Tadherent) : INTEGER;
