@@ -159,7 +159,11 @@ IMPLEMENTATION
 		ind : INTEGER;
 		trouve : BOOLEAN;
 	BEGIN
-		
+		trouve := false;
+		WHILE ( (NOT trouve) AND (ind < nbEmprunts) ) DO
+		BEGIN
+			// TOUT DOUX
+		END;
 	END;
 	
 	FUNCTION trouverEmpruntParNumero(tabEmprunts:TypeTabEmprunts; var nbEmprunts:INTEGER; var emprunt:Temprunt ;numero:INTEGER):BOOLEAN;
