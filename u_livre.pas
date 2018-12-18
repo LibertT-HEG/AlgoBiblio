@@ -79,8 +79,6 @@ IMPLEMENTATION
 		Writeln(decoration, ' ', titre, ' ', decoration);
 	END;
 
-	END;
-
 	FUNCTION saisirLivre(): Tlivre;
 	VAR
 		livre : Tlivre;
@@ -126,18 +124,26 @@ IMPLEMENTATION
 		writeln('- Nombre de pages : ', emprunt.livre.nbPages);
 		writeln('- Nombre d''exemplaires : ', emprunt.livre.nbExemplaires);
 		writeln('Emprunté par : ', emprunt.adherent.prenom, ' ', emprunt.adherent.nom);
-		writeln('Emprunté le : ', emprunt.date.jour,'.',emprunt.date.mois,'.',emprunt.date.annee);
+		writeln('Emprunté le : ', emprunt.dateEmprunt.jour,'.',emprunt.dateEmprunt.mois,'.',emprunt.dateEmprunt.annee);
 
 	END;
 	
 	PROCEDURE ajouterExemplaire(var livre:Tlivre);
 	BEGIN
-		
+		livre.nbExemplaires := livre.nbExemplaires+1;	
 	END;
 	
 	FUNCTION supprimerExemplaire(var livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts:INTEGER):BOOLEAN;
+	VAR
+		nbLivreEmprunt : INTEGER;
 	BEGIN
-		
+		nbLivreEmprunt  := 0;
+		supprimerExemplaire := false;
+		if((estDisponible(livre,tabEmprunt,nbEmprunts)) then
+		begin
+			livre.nbExemplaires := livre.nbExemplaires-1;
+			supprimerExemplaire := true;
+		end;
 	END;
 	
 	FUNCTION compteExemplairesEmpruntes(livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):INTEGER;
@@ -151,7 +157,7 @@ IMPLEMENTATION
 			IF tabEmprunt[ind].livre.isbn = livre.isbn THEN
 				nbEmpruntsLivre := nbEmpruntsLivre + 1;
 		END;
-		compteEmpruntsParAdherent := nbEmpruntsLivre;
+		compteExemplairesEmpruntes := nbEmpruntsLivre;
 	END;
 
 	FUNCTION compteExemplairesDisponibles(livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):INTEGER; // Retourne le nombre d'exemplaires encore disponibles	
