@@ -135,12 +135,12 @@ IMPLEMENTATION
 	
 	FUNCTION trouverLivreParISBN(tabLivres : TypeTabLivres; nbLivres : INTEGER; isbn:STRING; var livre:Tlivre):BOOLEAN;
 	BEGIN
-		
+		trouverLivreParISBN := false; // TODO
 	END;
 	
 	FUNCTION trouverLivresParAuteur(tabLivres : TypeTabLivres; nbLivres : INTEGER; codeAuteur:STRING; var tabLivresTrouves:TypeTabLivres; var nbLivresTrouves:INTEGER):BOOLEAN;
 	BEGIN
-		
+		trouverLivresParAuteur := false; // TODO
 	END;
 	//ADRIEN
 	FUNCTION ajouterNouvelAdherent(var tabAdherents:TypeTabAdherents; var nbAdherents:INTEGER; adherent:Tadherent) : BOOLEAN;
@@ -195,10 +195,11 @@ IMPLEMENTATION
 		livreValide := trouverIndiceEmprunt(tabEmprunts, nbEmprunts, emprunt, indiceEmprunt);
 		IF livreValide THEN
 		BEGIN
-			FOR ind := indiceEmprunt TO nbEmprunts - 2 DO
-			BEGIN
-				tabEmprunts[ind] := tabEmprunts[ind + 1];
-			END;
+			IF nbEmprunts > 1 THEN
+				FOR ind := indiceEmprunt TO nbEmprunts - 2 DO
+				BEGIN
+					tabEmprunts[ind] := tabEmprunts[ind + 1];
+				END;
 			nbEmprunts := nbEmprunts - 1;
 		END;
 		rendreLivre := livreValide;
