@@ -147,8 +147,18 @@ IMPLEMENTATION
 	END;
 	
 	FUNCTION trouverLivresParAuteur(tabLivres : TypeTabLivres; nbLivres : INTEGER; codeAuteur:STRING; var tabLivresTrouves:TypeTabLivres; var nbLivresTrouves:INTEGER):BOOLEAN;
+	VAR
+		ind : integer;
 	BEGIN
+	// codeAuteur
 		trouverLivresParAuteur := false;
+		for ind := 0 to nbLivres do
+			if tabLivres[ind].codeAuteur = codeAuteur then
+			begin
+				tabLivresTrouves[nbLivresTrouves] := tabLivres[ind];
+				nbLivresTrouves := nbLivresTrouves + 1;
+				trouverLivresParAuteur := true;
+			end;
 	END;
 	//ADRIEN
 	FUNCTION ajouterNouvelAdherent(var tabAdherents:TypeTabAdherents; var nbAdherents:INTEGER; adherent:Tadherent) : BOOLEAN;
