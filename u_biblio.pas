@@ -252,10 +252,10 @@ IMPLEMENTATION
 			IF tabEmprunts[ind].numeroEmprunt = numero THEN
 			BEGIN
 				trouve := true;
-				emprunt := tabEmprunt[ind];
+				emprunt := tabEmprunts[ind];
 			END;
 			ind := ind + 1;
 		END;
-		trouverIndiceEmprunt := trouve;
+		trouverEmpruntParNumero := trouve;
 	END;
 END.
