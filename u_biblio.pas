@@ -195,11 +195,9 @@ IMPLEMENTATION
 		livreValide := trouverIndiceEmprunt(tabEmprunts, nbEmprunts, emprunt, indiceEmprunt);
 		IF livreValide THEN
 		BEGIN
-			IF nbEmprunts > 1 THEN
+			IF nbEmprunts > (indiceEmprunt + 1) THEN
 				FOR ind := indiceEmprunt TO nbEmprunts - 2 DO
-				BEGIN
 					tabEmprunts[ind] := tabEmprunts[ind + 1];
-				END;
 			nbEmprunts := nbEmprunts - 1;
 		END;
 		rendreLivre := livreValide;
@@ -225,7 +223,21 @@ IMPLEMENTATION
 	END;
 	
 	FUNCTION trouverEmpruntParNumero(tabEmprunts:TypeTabEmprunts; var nbEmprunts:INTEGER; var emprunt:Temprunt ;numero:INTEGER):BOOLEAN;
+	VAR
+		ind : INTEGER;
+		trouve : BOOLEAN;
 	BEGIN
-		
+		trouve := false;
+		ind := 0;
+		WHILE ( (NOT trouve) AND (ind < nbEmprunts) ) DO
+		BEGIN
+			IF tabEmprunts[ind].numeroEmprunt = numero THEN
+			BEGIN
+				trouve := true;
+				emprunt := tabEmprunt[ind];
+			END;
+			ind := ind + 1;
+		END;
+		trouverIndiceEmprunt := trouve;
 	END;
 END.
