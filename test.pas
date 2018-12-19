@@ -13,16 +13,18 @@ BEGIN
     dummyAdherent.adresse.ville := 'St-Aubin';
     dummyAdherent.adresse.pays := 'Suisse';
 
-    afficherAdherent(dummyAdherent);
-
     dummyLivre.isbn := '473f34z389475fh';
     dummyLivre.titre := 'George et ses copains';
     dummyLivre.codeAuteur := '4B1780L';
     dummyLivre.nbPages := 885;
     dummyLivre.nbExemplaires := 1;
 
-    afficherLivre(dummyLivre);
+    Writeln(LineEnding, 'Test de la procedure u_adherent.afficherAdherent : ');
+    afficherAdherent(dummyAdherent);
 
+    Writeln(LineEnding, 'Test de la procedure u_livre.afficherLivre : ');
+    afficherLivre(dummyLivre);
+    Writeln(LineEnding, 'Test de la fonction u_biblio.estOuverte : ');
     IF estOuverte('samedi', 12) THEN
         writeln('La bibliotheque est ouverte')
     ELSE

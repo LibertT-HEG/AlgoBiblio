@@ -110,18 +110,12 @@ IMPLEMENTATION
 		IF jour <> 'dimanche' THEN
 		BEGIN
 			IF jour <> 'lundi' THEN // du mardi au samedi
-			BEGIN
 				IF ((heure >= 8) AND (heure < 12)) OR ((heure > 14) AND (heure < 20)) THEN
-					estOuverte := true;
-			END
+					estOuverte := true
 			ELSE //si on est lundi
-			BEGIN
 				IF (heure >= 14) AND (heure < 18) THEN
-					estOuverte := true;
-			END;
-		END
-		ELSE
-			estOuverte := false;
+					estOuverte := true
+		END;
 	END;
 	
 	FUNCTION ajouterNouveauLivre(var tabLivres : TypeTabLivres; var nbLivres : INTEGER; nouveauLivre : Tlivre) : BOOLEAN; 
