@@ -15,10 +15,79 @@ USES u_biblio, u_livre, u_adherent, crt;
 		biblio.adresse.npa:='2000';
 		biblio.adresse.ville:='Neuchatel';	
 		biblio.adresse.pays:='Suisse';
-	
-	
+
 		//TODO : A compléter avec quelques adhérents et quelques livres
-		
+		livre.isbn := '978-2-02-130452-7';
+		livre.titre := 'George et ses copains';
+		livre.titre := '4B1TB0L';
+		livre.nbPages := 123;
+		livre.nbExemplaires := 1;
+
+		biblio.tabLivres[biblio.nbLivres] := livre;
+		biblio.nbLivres := biblio.nbLivres + 1;
+
+		livre.isbn := '142-2-12-330252-7';
+		livre.titre := 'Vendre des marchandises';
+		livre.titre := 'T4R1K0';
+		livre.nbPages := 14;
+		livre.nbExemplaires := 4;
+
+		biblio.tabLivres[biblio.nbLivres] := livre;
+		biblio.nbLivres := biblio.nbLivres + 1;
+
+		livre.isbn := '645-6-52-331802-2';
+		livre.titre := 'Martine euthanasie Medor';
+		livre.titre := 'M4RT1N';
+		livre.nbPages := 34;
+		livre.nbExemplaires := 2;
+
+		biblio.tabLivres[biblio.nbLivres] := livre;
+		biblio.nbLivres := biblio.nbLivres + 1;
+
+		livre.isbn := '645-6-52-331802-2';
+		livre.titre := 'L''histoire de Pascal du debut a la fin';
+		livre.titre := 'P4SC4L';
+		livre.nbPages := 22;
+		livre.nbExemplaires := 12;
+
+		biblio.tabLivres[biblio.nbLivres] := livre;
+		biblio.nbLivres := biblio.nbLivres + 1;
+
+		adherent.codeAdherent := 'A7578afSFwe';
+		adherent.prenom := 'Dave';
+		adherent.nom := 'Quantic';
+		adherent.adresse.rue := 'Place du Telephone';
+		adherent.adresse.numeroRue := '11';
+		adherent.adresse.npa := '1224';
+		adherent.adresse.ville := 'San Francisco';
+		adherent.adresse.pays := 'Etats-Unis';
+
+		biblio.tabAdherents[biblio.nbAdherents] := adherent;
+		biblio.nbAdherents := biblio.nbAdherents + 1;
+
+		adherent.codeAdherent := 'f78aSFweA75';
+		adherent.prenom := 'George';
+		adherent.nom := 'Abitbol';
+		adherent.adresse.rue := 'Rue de la Classe';
+		adherent.adresse.numeroRue := '1';
+		adherent.adresse.npa := '321400';
+		adherent.adresse.ville := 'Bateau';
+		adherent.adresse.pays := 'Atoll de Pom Pom Galli';
+
+		biblio.tabAdherents[biblio.nbAdherents] := adherent;
+		biblio.nbAdherents := biblio.nbAdherents + 1;
+
+		adherent.codeAdherent := 'A7578afSFwe';
+		adherent.prenom := 'Jose';
+		adherent.nom := 'Denomme';
+		adherent.adresse.rue := 'Rue de la Coquetterie';
+		adherent.adresse.numeroRue := '100';
+		adherent.adresse.npa := '321400';
+		adherent.adresse.ville := 'Bateau';
+		adherent.adresse.pays := 'Atoll de Pom Pom Galli';
+
+		biblio.tabAdherents[biblio.nbAdherents] := adherent;
+		biblio.nbAdherents := biblio.nbAdherents + 1;
 	END;
 
 VAR
@@ -68,7 +137,7 @@ BEGIN
 				READLN(choix);
 			UNTIL (choix >= 0) AND (choix <= 14);
 			
-			ClrScr;
+			//ClrScr; clear screen (empeche de scroller et voir les données trop longues)
 			CASE choix OF 
 				1 : BEGIN
 						
@@ -110,7 +179,7 @@ BEGIN
 						
 					END;
 				14 : BEGIN
-						
+						afficherBibliotheque(biblio);
 					END;
 				0 : BEGIN
 						

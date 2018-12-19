@@ -85,17 +85,21 @@ IMPLEMENTATION
 	BEGIN
 		// nom de la bibliotheque
 		afficherTitre(biblio.nomBiblio, '=', 10);
-		Writeln('Liste des livres de la bibliotheque : ');
+
+		Writeln(biblio.adresse.rue, ' ', biblio.adresse.numeroRue, ', ', biblio.adresse.npa, ' ', biblio.adresse.ville, ' (', biblio.adresse.pays, ')');
+		Writeln(LineEnding, 'Liste des livres de la bibliotheque : ');
 		// lister les livres
 		for ind := 0 to biblio.nbLivres - 1 do
+		begin
 			Writeln('ISBN : ', biblio.tabLivres[ind].isbn, ' Titre : ', biblio.tabLivres[ind].titre, ' Code d''auteur : ', biblio.tabLivres[ind].codeAuteur, ' Nombre de pages : ', biblio.tabLivres[ind].nbPages, ' Exemplaires : ', biblio.tabLivres[ind].nbExemplaires);
-		Writeln('Liste des adherents de la bibliotheque : ');
+		end;
+		Writeln(LineEnding, 'Liste des adherents de la bibliotheque : ');
 		for ind := 0 to biblio.nbAdherents - 1 do
 		begin
 			writeln(biblio.tabAdherents[ind].prenom, ' ', biblio.tabAdherents[ind].nom, ' (', biblio.tabAdherents[ind].codeAdherent, ') ');
 			writeln(biblio.tabAdherents[ind].adresse.rue, ' ', biblio.tabAdherents[ind].adresse.numeroRue, ', ', biblio.tabAdherents[ind].adresse.npa, ' ', biblio.tabAdherents[ind].adresse.ville, ' (', biblio.tabAdherents[ind].adresse.pays, ')');
 		end;
-		Writeln('Liste des emprunts en cours : ');
+		Writeln(LineEnding, 'Liste des emprunts en cours : ');
 		for ind := 0 to biblio.nbEmprunts - 1 do
 		begin
 			Writeln('Numero : ', biblio.tabEmprunts[ind].numeroEmprunt, ' Livre : ', biblio.tabEmprunts[ind].livre.titre, ' (', biblio.tabEmprunts[ind].livre.isbn, '). Adherent : ', biblio.tabEmprunts[ind].adherent.prenom, ' ', biblio.tabEmprunts[ind].adherent.nom, ' (', biblio.tabEmprunts[ind].adherent.codeAdherent, ') le ', biblio.tabEmprunts[ind].dateEmprunt.jour, '.', biblio.tabEmprunts[ind].dateEmprunt.mois, '.', biblio.tabEmprunts[ind].dateEmprunt.annee, '.');
