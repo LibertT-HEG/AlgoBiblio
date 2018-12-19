@@ -113,11 +113,9 @@ IMPLEMENTATION
 		if not(u_livre.compteExemplairesEmpruntes(livre, tabEmprunt, nbEmprunts) > 0) then // TOUT DOUX: changer après implémentation de trouverIndiceEmprunt (?)
 			if trouverIndiceLivre(tabLivres, nbLivres, livre, indiceLivre) then
 			BEGIN
-			IF nbLivres > 1 THEN
+			IF nbLivres > (indiceLivre + 1) THEN
 				FOR ind := indiceLivre TO nbLivres - 2 DO
-				BEGIN
 					tabLivres[ind] := tabLivres[ind + 1];
-				END;
 			nbLivres := nbLivres - 1;
 		END;
 	END;
@@ -136,8 +134,13 @@ IMPLEMENTATION
 	END;
 	
 	FUNCTION trouverLivreParISBN(tabLivres : TypeTabLivres; nbLivres : INTEGER; isbn:STRING; var livre:Tlivre):BOOLEAN;
+	VAR
+		ind : integer;
 	BEGIN
 		trouverLivreParISBN := false; // TODO
+		for ind := 0 to nbLivres do
+			if tabLivres[ind].isbn = isbn then
+				livre := tabLivres[ind];
 	END;
 	
 	FUNCTION trouverLivresParAuteur(tabLivres : TypeTabLivres; nbLivres : INTEGER; codeAuteur:STRING; var tabLivresTrouves:TypeTabLivres; var nbLivresTrouves:INTEGER):BOOLEAN;
