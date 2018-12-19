@@ -139,7 +139,7 @@ IMPLEMENTATION
 	BEGIN
 		nbLivreEmprunt  := 0;
 		supprimerExemplaire := false;
-		if((estDisponible(livre,tabEmprunt,nbEmprunts)) then
+		if((estDisponible(livre,tabEmprunt,nbEmprunts))) then
 		begin
 			livre.nbExemplaires := livre.nbExemplaires-1;
 			supprimerExemplaire := true;

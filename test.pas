@@ -17,16 +17,16 @@ BEGIN
 
     dummyLivre.isbn := '473f34z389475fh';
     dummyLivre.titre := 'George et ses copains';
-    dummyLivre.codeAuteur := 'ABIT47BOL';
-    dummyLivre.nbPages := 80085;
+    dummyLivre.codeAuteur := '4B1780L';
+    dummyLivre.nbPages := 885;
     dummyLivre.nbExemplaires := 1;
 
     afficherLivre(dummyLivre);
 
-    IF estOuverte() THEN
-        writeln('La bibliothèque est ouverte')
+    IF estOuverte('samedi', 12) THEN
+        writeln('La bibliotheque est ouverte')
     ELSE
-        writeln('La bibliothèque est fermée');
+        writeln('La bibliotheque est fermee');
 
 
 END.
