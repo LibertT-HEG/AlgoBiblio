@@ -116,15 +116,26 @@ IMPLEMENTATION
 	BEGIN
 		
 	END;
-	
+	//ADRIEN
 	FUNCTION ajouterNouvelAdherent(var tabAdherents:TypeTabAdherents; var nbAdherents:INTEGER; adherent:Tadherent) : BOOLEAN;
 	BEGIN
-		
+		ajouterNouvelAdherent := false;
+		if(nbAdherents<Cmax) THEN
+		begin
+			tabAdherents[nbAdherents] := adherent;
+			nbAdherents := nbAdherents+1;
+			ajouterNouvelAdherent := true;
+		end;
 	END;
 	
 	FUNCTION supprimerAdherent(var tabAdherents:TypeTabAdherents; var nbAdherents:INTEGER; adherent:Tadherent; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):BOOLEAN;
 	BEGIN
-		
+		supprimerAdherent := false;
+		IF(compteEmpruntsParAdherent(tabEmprunt,nbEmprunts,adherent) = 0)
+		begin
+			
+		end;
+
 	END;
 	
 	FUNCTION trouverIndiceAdherent(tabAdherents:TypeTabAdherents; var nbAdherents:INTEGER; adherent:Tadherent; var indiceRetour : INTEGER) : BOOLEAN;
