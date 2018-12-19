@@ -4,6 +4,7 @@ VAR
     dummyAdherent : Tadherent;
     dummyLivre : Tlivre;
 BEGIN
+    // Branch test
     dummyAdherent.codeAdherent := 'A7578afSFwe';
     dummyAdherent.prenom := 'Philippe';
     dummyAdherent.nom := 'Oswald';
