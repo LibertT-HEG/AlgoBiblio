@@ -112,12 +112,14 @@ IMPLEMENTATION
 		indiceLivre := -1;
 		if not(u_livre.compteExemplairesEmpruntes(livre, tabEmprunt, nbEmprunts) > 0) then // TOUT DOUX: changer après implémentation de trouverIndiceEmprunt (?)
 			if trouverIndiceLivre(tabLivres, nbLivres, livre, indiceLivre) then
-			begin
-				for ind := indiceLivre to nbLivres - 1 do
+			BEGIN
+			IF nbLivres > 1 THEN
+				FOR ind := indiceLivre TO nbLivres - 2 DO
+				BEGIN
 					tabLivres[ind] := tabLivres[ind + 1];
-				nbLivres := nbLivres - 1;
-				supprimerLivre := true;
-			end;
+				END;
+			nbLivres := nbLivres - 1;
+		END;
 	END;
 
 	FUNCTION trouverIndiceLivre(tabLivres : TypeTabLivres; nbLivres : INTEGER; livre:Tlivre; var indiceRetour:INTEGER):BOOLEAN;
@@ -155,18 +157,34 @@ IMPLEMENTATION
 	END;
 	
 	FUNCTION supprimerAdherent(var tabAdherents:TypeTabAdherents; var nbAdherents:INTEGER; adherent:Tadherent; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):BOOLEAN;
+	VAR
+		ind : integer;
+		indiceAdherent : integer;
 	BEGIN
 		supprimerAdherent := false;
-		IF(compteEmpruntsParAdherent(tabEmprunt,nbEmprunts,adherent) = 0)
+		IF((compteEmpruntsParAdherent(tabEmprunt,nbEmprunts,adherent) = 0)) AND (trouverIndiceAdherent(tabAdherents, nbAdherents, adherent, indiceAdherent)) then
 		begin
-			
+			if not(indiceAdherent+1 = nbAdherents) then
+			begin
+				for ind := indiceAdherent to nbAdherents - 2 do
+					tabAdherents[ind] := tabAdherents[ind + 1];
+			end;
+			nbAdherents := nbAdherents - 1;
+			supprimerAdherent := true;
 		end;
-
 	END;
 	
 	FUNCTION trouverIndiceAdherent(tabAdherents:TypeTabAdherents; var nbAdherents:INTEGER; adherent:Tadherent; var indiceRetour : INTEGER) : BOOLEAN;
+	VAR
+		ind : integer;
 	BEGIN
-		
+		trouverIndiceAdherent := false;
+		for ind := 0 to nbAdherents - 1 do
+			if tabAdherents[ind].codeAdherent = adherent.codeAdherent then
+			begin
+				indiceRetour := ind;
+				trouverIndiceAdherent := true;
+			end;
 	END;
 	
 	FUNCTION trouverAdherentParCode(tabAdherents:TypeTabAdherents; var nbAdherents:INTEGER; codeAdherent:STRING; var adherentTrouve:Tadherent) : BOOLEAN;
