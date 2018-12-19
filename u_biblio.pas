@@ -112,12 +112,14 @@ IMPLEMENTATION
 		indiceLivre := -1;
 		if not(u_livre.compteExemplairesEmpruntes(livre, tabEmprunt, nbEmprunts) > 0) then // TOUT DOUX: changer après implémentation de trouverIndiceEmprunt (?)
 			if trouverIndiceLivre(tabLivres, nbLivres, livre, indiceLivre) then
-			begin
-				for ind := indiceLivre to nbLivres - 1 do
+			BEGIN
+			IF nbLivres > 1 THEN
+				FOR ind := indiceLivre TO nbLivres - 2 DO
+				BEGIN
 					tabLivres[ind] := tabLivres[ind + 1];
-				nbLivres := nbLivres - 1;
-				supprimerLivre := true;
-			end;
+				END;
+			nbLivres := nbLivres - 1;
+		END;
 	END;
 
 	FUNCTION trouverIndiceLivre(tabLivres : TypeTabLivres; nbLivres : INTEGER; livre:Tlivre; var indiceRetour:INTEGER):BOOLEAN;
