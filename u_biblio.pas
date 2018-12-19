@@ -188,8 +188,16 @@ IMPLEMENTATION
 	END;
 	
 	FUNCTION trouverAdherentParCode(tabAdherents:TypeTabAdherents; var nbAdherents:INTEGER; codeAdherent:STRING; var adherentTrouve:Tadherent) : BOOLEAN;
+	VAR
+		ind : integer;
 	BEGIN
-		
+		trouverAdherentParCode := false;
+		for ind := 0 to nbAdherents - 1 do
+			if tabAdherents[ind].codeAdherent = codeAdherent then
+			begin
+				adherentTrouve := tabAdherents[ind];
+				trouverAdherentParCode := true;
+			end;
 	END;
 	// THIBAULT
 	FUNCTION emprunterLivre(var tabEmprunts:TypeTabEmprunts; var nbEmprunts:INTEGER; livre:Tlivre; adherent:Tadherent;dateEmprunt:Tdate):BOOLEAN;
