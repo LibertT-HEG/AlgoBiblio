@@ -197,10 +197,17 @@ IMPLEMENTATION
 		trouve : BOOLEAN;
 	BEGIN
 		trouve := false;
+		ind := 0;
 		WHILE ( (NOT trouve) AND (ind < nbEmprunts) ) DO
 		BEGIN
-			// TOUT DOUX
+			IF tabEmprunts[ind].numeroEmprunt = emprunt.numeroEmprunt THEN
+			BEGIN
+				trouve := true;
+				indiceRetour := ind;
+			END;
+			ind := ind + 1;
 		END;
+		trouverIndiceEmprunt := trouve;
 	END;
 	
 	FUNCTION trouverEmpruntParNumero(tabEmprunts:TypeTabEmprunts; var nbEmprunts:INTEGER; var emprunt:Temprunt ;numero:INTEGER):BOOLEAN;
