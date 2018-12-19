@@ -176,9 +176,9 @@ IMPLEMENTATION
 	// THIBAULT
 	FUNCTION emprunterLivre(var tabEmprunts:TypeTabEmprunts; var nbEmprunts:INTEGER; livre:Tlivre; adherent:Tadherent;dateEmprunt:Tdate):BOOLEAN;
 	BEGIN
-		IF estDisponible(livre, tabEmprunts, nbEmprunts) THEN
+		IF u_livre.estDisponible(livre, tabEmprunts, nbEmprunts) THEN
 		BEGIN		
-			tabEmprunts[nbEmprunts] := creerEmprunt(livre, adherent, dateEmprunt);
+			tabEmprunts[nbEmprunts] := u_livre.creerEmprunt(livre, adherent, dateEmprunt);
 			nbEmprunts := nbEmprunts + 1;
 			emprunterLivre := true;
 		END
@@ -187,8 +187,21 @@ IMPLEMENTATION
 	END;
 	
 	FUNCTION rendreLivre(var tabEmprunts:TypeTabEmprunts; var nbEmprunts:INTEGER; emprunt:Temprunt):BOOLEAN; 
+	VAR
+		ind : INTEGER;
+		indiceEmprunt : INTEGER;
+		livreValide : BOOLEAN;
 	BEGIN
-		
+		livreValide := trouverIndiceEmprunt(tabEmprunts, nbEmprunts, emprunt, indiceEmprunt);
+		IF livreValide THEN
+		BEGIN
+			FOR ind := indiceEmprunt TO nbEmprunts - 2 DO
+			BEGIN
+				tabEmprunts[ind] := tabEmprunts[ind + 1];
+			END;
+			nbEmprunts := nbEmprunts - 1;
+		END;
+		rendreLivre := livreValide;
 	END;
 	
 	FUNCTION trouverIndiceEmprunt(tabEmprunts:TypeTabEmprunts; nbEmprunts:INTEGER; emprunt:Temprunt; var indiceRetour : INTEGER):BOOLEAN; 
