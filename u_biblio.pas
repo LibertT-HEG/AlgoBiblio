@@ -59,7 +59,7 @@ IMPLEMENTATION
 	PROCEDURE initBiblio(var biblio:Tbibliotheque);
 	BEGIN
 		// données pourries pour le moment
-		biblio.nomBiblio := 'Dummy Biblio';
+		biblio.nomBiblio := '';
 		biblio.nbLivres := 0;
 		biblio.nbEmprunts := 0;
 		biblio.nbAdherents := 0;
@@ -112,12 +112,14 @@ IMPLEMENTATION
 		indiceLivre := -1;
 		if not(u_livre.compteExemplairesEmpruntes(livre, tabEmprunt, nbEmprunts) > 0) then // TOUT DOUX: changer après implémentation de trouverIndiceEmprunt (?)
 			if trouverIndiceLivre(tabLivres, nbLivres, livre, indiceLivre) then
-			begin
-				for ind := indiceLivre to nbLivres - 1 do
+			BEGIN
+			IF nbLivres > 1 THEN
+				FOR ind := indiceLivre TO nbLivres - 2 DO
+				BEGIN
 					tabLivres[ind] := tabLivres[ind + 1];
-				nbLivres := nbLivres - 1;
-				supprimerLivre := true;
-			end;
+				END;
+			nbLivres := nbLivres - 1;
+		END;
 	END;
 
 	FUNCTION trouverIndiceLivre(tabLivres : TypeTabLivres; nbLivres : INTEGER; livre:Tlivre; var indiceRetour:INTEGER):BOOLEAN;
@@ -135,12 +137,12 @@ IMPLEMENTATION
 	
 	FUNCTION trouverLivreParISBN(tabLivres : TypeTabLivres; nbLivres : INTEGER; isbn:STRING; var livre:Tlivre):BOOLEAN;
 	BEGIN
-		
+		trouverLivreParISBN := false; // TODO
 	END;
 	
 	FUNCTION trouverLivresParAuteur(tabLivres : TypeTabLivres; nbLivres : INTEGER; codeAuteur:STRING; var tabLivresTrouves:TypeTabLivres; var nbLivresTrouves:INTEGER):BOOLEAN;
 	BEGIN
-		
+		trouverLivresParAuteur := false; // TODO
 	END;
 	//ADRIEN
 	FUNCTION ajouterNouvelAdherent(var tabAdherents:TypeTabAdherents; var nbAdherents:INTEGER; adherent:Tadherent) : BOOLEAN;
@@ -192,9 +194,9 @@ IMPLEMENTATION
 	// THIBAULT
 	FUNCTION emprunterLivre(var tabEmprunts:TypeTabEmprunts; var nbEmprunts:INTEGER; livre:Tlivre; adherent:Tadherent;dateEmprunt:Tdate):BOOLEAN;
 	BEGIN
-		IF estDisponible(livre, tabEmprunts, nbEmprunts) THEN
+		IF u_livre.estDisponible(livre, tabEmprunts, nbEmprunts) THEN
 		BEGIN		
-			tabEmprunts[nbEmprunts] := creerEmprunt(livre, adherent, dateEmprunt);
+			tabEmprunts[nbEmprunts] := u_livre.creerEmprunt(livre, adherent, dateEmprunt);
 			nbEmprunts := nbEmprunts + 1;
 			emprunterLivre := true;
 		END
@@ -203,8 +205,22 @@ IMPLEMENTATION
 	END;
 	
 	FUNCTION rendreLivre(var tabEmprunts:TypeTabEmprunts; var nbEmprunts:INTEGER; emprunt:Temprunt):BOOLEAN; 
+	VAR
+		ind : INTEGER;
+		indiceEmprunt : INTEGER;
+		livreValide : BOOLEAN;
 	BEGIN
-		
+		livreValide := trouverIndiceEmprunt(tabEmprunts, nbEmprunts, emprunt, indiceEmprunt);
+		IF livreValide THEN
+		BEGIN
+			IF nbEmprunts > 1 THEN
+				FOR ind := indiceEmprunt TO nbEmprunts - 2 DO
+				BEGIN
+					tabEmprunts[ind] := tabEmprunts[ind + 1];
+				END;
+			nbEmprunts := nbEmprunts - 1;
+		END;
+		rendreLivre := livreValide;
 	END;
 	
 	FUNCTION trouverIndiceEmprunt(tabEmprunts:TypeTabEmprunts; nbEmprunts:INTEGER; emprunt:Temprunt; var indiceRetour : INTEGER):BOOLEAN; 
@@ -213,10 +229,17 @@ IMPLEMENTATION
 		trouve : BOOLEAN;
 	BEGIN
 		trouve := false;
+		ind := 0;
 		WHILE ( (NOT trouve) AND (ind < nbEmprunts) ) DO
 		BEGIN
-			// TOUT DOUX
+			IF tabEmprunts[ind].numeroEmprunt = emprunt.numeroEmprunt THEN
+			BEGIN
+				trouve := true;
+				indiceRetour := ind;
+			END;
+			ind := ind + 1;
 		END;
+		trouverIndiceEmprunt := trouve;
 	END;
 	
 	FUNCTION trouverEmpruntParNumero(tabEmprunts:TypeTabEmprunts; var nbEmprunts:INTEGER; var emprunt:Temprunt ;numero:INTEGER):BOOLEAN;
