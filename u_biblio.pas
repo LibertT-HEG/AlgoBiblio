@@ -58,16 +58,48 @@ IMPLEMENTATION
 	// PHILIPPE
 	PROCEDURE initBiblio(var biblio:Tbibliotheque);
 	BEGIN
-		// données pourries pour le moment
 		biblio.nomBiblio := '';
 		biblio.nbLivres := 0;
 		biblio.nbEmprunts := 0;
 		biblio.nbAdherents := 0;
 	END;
+
+	// Affiche un message sous forme de titre entouré d'une séquence de caractères sur chaque côté
+	// deja repetée dans deux fichiers différents faudra surement l'isoler dans un module à part
+	PROCEDURE afficherTitre(titre:string; sequence: string; repetition:integer);
+	VAR
+		ind : integer;
+		decoration : string;
+	BEGIN
+		decoration := '';
+		FOR ind := 0 TO repetition DO
+		BEGIN
+			decoration := decoration + sequence;
+		END;
+		Writeln(decoration, ' ', titre, ' ', decoration);
+	END;
 	
 	PROCEDURE afficherBibliotheque(biblio:Tbibliotheque);
+	VAR
+		ind : integer;
 	BEGIN
-		
+		// nom de la bibliotheque
+		afficherTitre(biblio.nomBiblio, '=', 10);
+		Writeln('Liste des livres de la bibliotheque : ');
+		// lister les livres
+		for ind := 0 to biblio.nbLivres - 1 do
+			Writeln('ISBN : ', biblio.tabLivres[ind].isbn, ' Titre : ', biblio.tabLivres[ind].titre, ' Code d''auteur : ', biblio.tabLivres[ind].codeAuteur, ' Nombre de pages : ', biblio.tabLivres[ind].nbPages, ' Exemplaires : ', biblio.tabLivres[ind].nbExemplaires);
+		Writeln('Liste des adherents de la bibliotheque : ');
+		for ind := 0 to biblio.nbAdherents - 1 do
+		begin
+			writeln(biblio.tabAdherents[ind].prenom, ' ', biblio.tabAdherents[ind].nom, ' (', biblio.tabAdherents[ind].codeAdherent, ') ');
+			writeln(biblio.tabAdherents[ind].adresse.rue, ' ', biblio.tabAdherents[ind].adresse.numeroRue, ', ', biblio.tabAdherents[ind].adresse.npa, ' ', biblio.tabAdherents[ind].adresse.ville, ' (', biblio.tabAdherents[ind].adresse.pays, ')');
+		end;
+		Writeln('Liste des emprunts en cours : ');
+		for ind := 0 to biblio.nbEmprunts - 1 do
+		begin
+			Writeln('Numero : ', biblio.tabEmprunts[ind].numeroEmprunt, ' Livre : ', biblio.tabEmprunts[ind].livre.titre, ' (', biblio.tabEmprunts[ind].livre.isbn, '). Adherent : ', biblio.tabEmprunts[ind].adherent.prenom, ' ', biblio.tabEmprunts[ind].adherent.nom, ' (', biblio.tabEmprunts[ind].adherent.codeAdherent, ') le ', biblio.tabEmprunts[ind].dateEmprunt.jour, '.', biblio.tabEmprunts[ind].dateEmprunt.mois, '.', biblio.tabEmprunts[ind].dateEmprunt.annee, '.');
+		end;
 	END;
 	
 	// Permet de savoir si la bibliothèque est ouverte ou non ! Elle est ouverte du mardi au samedi de 8h à 12h et de 14h à 20h, et le lundi de 14h à 18h !
@@ -150,7 +182,6 @@ IMPLEMENTATION
 	VAR
 		ind : integer;
 	BEGIN
-	// codeAuteur
 		trouverLivresParAuteur := false;
 		for ind := 0 to nbLivres do
 			if tabLivres[ind].codeAuteur = codeAuteur then
