@@ -290,7 +290,7 @@ BEGIN
 				6 : BEGIN
 						adherent := u_adherent.saisirAdherent();
 						// TODO: peut-etre faire un check si tout a bien fonctionne
-						u_biblio.ajouterNouvelAdherent(biblio.tabAdherents, biblio.nbAdherents; adherent);
+						u_biblio.ajouterNouvelAdherent(biblio.tabAdherents, biblio.nbAdherents, adherent);
 
 					END;
 				7 : BEGIN
