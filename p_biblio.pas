@@ -1,5 +1,5 @@
 PROGRAM p_biblio;
-USES u_biblio, u_livre, u_adherent, crt;
+USES u_biblio, u_livre, u_adherent, crt, dos;
 
 	PROCEDURE initProgram();
 	BEGIN
@@ -111,6 +111,10 @@ VAR
 
 	// Variable booléenne pour effectuer des tests
 	trouve : BOOLEAN;
+
+	// Variable word inutile pour les appels sur la date système
+	dummyWord : WORD;
+
 BEGIN
 	initProgram(); // Va initialiser la variable globale compteurEmprunt a 0
 	u_biblio.initBiblio(biblio);
@@ -139,7 +143,7 @@ BEGIN
 				READLN(choix);
 			UNTIL (choix >= 0) AND (choix <= 14);
 			
-			// ClrScr; // clear screen (empeche de scroller et voir les données trop longues)
+			ClrScr; // clear screen (empeche de scroller et voir les données trop longues)
 			CASE choix OF 
 				1 : BEGIN
 						WRITELN('+--------------------+');
@@ -171,17 +175,21 @@ BEGIN
 								WRITELN('L''ISBN saisi n''existe pas dans la bibliotheque. Reessayez.');
 						UNTIL trouve;
 
-						 {
-							IF u_biblio.emprunterLivre(
+						GetDate(Word(date.annee), Word(date.mois), Word(date.jour), dummyWord);
+
+						IF u_biblio.emprunterLivre(
 							biblio.tabEmprunts,
 							biblio.nbEmprunts,
 							livre,
 							adherent, 
-
-						) THEN }
+							date
+						) THEN
+							WRITELN('L''emprunt du livre "', livre.titre, '" a ete fait avec succes.')
+						ELSE
+							WRITELN('Ce livre n''est pas disponible.');
 					END;
 				2 : BEGIN
-						
+
 					END;
 				3 : BEGIN
 						
@@ -189,8 +197,21 @@ BEGIN
 				4 : BEGIN
 						
 					END;
-				5 : BEGIN
-						
+				{5 : BEGIN
+						REPEAT
+							WRITE('Saisissez l''ISBN du livre a emprunter : ');
+							READLN(isbn);
+							trouve := u_biblio.trouverLivreParISBN(
+								biblio.tabLivres,
+								biblio.nbLivres,
+								isbn,
+								livre
+							);
+							IF NOT trouve THEN
+								WRITELN('L''ISBN saisi n''existe pas dans la bibliotheque. Reessayez.');
+						UNTIL trouve;
+						u_biblio.trouverIndiceLivre(biblio.tabLivres, biblio.nbLivres, livre, indiceLivre);
+						u_livre.ajouterExemplaire(biblio.tabLivres[indiceLivre]);
 					END;
 				6 : BEGIN
 						
@@ -250,7 +271,7 @@ BEGIN
 					END;
 				14 : BEGIN
 						afficherBibliotheque(biblio);
-					END;
+					END;}
 				0 : BEGIN
 						
 					END;
