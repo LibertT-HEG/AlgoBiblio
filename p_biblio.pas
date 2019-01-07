@@ -28,7 +28,7 @@ USES u_biblio, u_livre, u_adherent, crt, dos;
 
 		livre.isbn := '142-2-12-330252-7';
 		livre.titre := 'Vendre des marchandises';
-		livre.titre := 'T4R1K0';
+		livre.codeAuteur := 'T4R1K0';
 		livre.nbPages := 14;
 		livre.nbExemplaires := 4;
 
@@ -216,14 +216,38 @@ BEGIN
 							WRITELN('Un probleme est survenu dans le rendu du livre.');
 					END;
 				3 : BEGIN
+						WRITELN('+---------------------------------------+');
+						WRITELN('| Verifier la disponibilite d''un livre |');
+						WRITELN('+---------------------------------------+');
 						
+						REPEAT
+							WRITE('Saisissez l''ISBN du livre : ');
+							READLN(isbn);
+							trouve := u_biblio.trouverLivreParISBN(
+								biblio.tabLivres,
+								biblio.nbLivres,
+								isbn,
+								livre
+							);
+							IF NOT trouve THEN
+								WRITELN('L''ISBN saisi n''existe pas dans la bibliotheque. Reessayez.');
+						UNTIL trouve;
+
+						IF u_livre.estDisponible(
+							livre,
+							biblio.tabEmprunts,
+							biblio.nbEmprunts
+						) THEN
+							WRITELN('Le livre "', livre.titre, '" est disponible.')
+						ELSE
+							WRITELN('Le livre "', livre.titre, '" n''est pas disponible.');
 					END;
 				4 : BEGIN
 						
 					END;
 				5 : BEGIN
 						REPEAT
-							WRITE('Saisissez l''ISBN du livre a emprunter : ');
+							WRITE('Saisissez l''ISBN du livre a ajouter : ');
 							READLN(isbn);
 							trouve := u_biblio.trouverLivreParISBN(
 								biblio.tabLivres,
