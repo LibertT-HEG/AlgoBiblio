@@ -147,19 +147,38 @@ BEGIN
 						WRITELN('+--------------------+');
 						
 						REPEAT
-							WRITE('Indiquez le code de l''adherent');
+							WRITE('Saisissez le code de l''adherent');
 							READLN(codeAdherent);
-							u_biblio.trouverAdherentParCode(biblio.tabAdherents,
-							biblio.nbAdherents,
-							codeAdherent,
-							adherent)
-							WRITELN('Le code entre ne correspond a aucun adherent. Reessayez.');
-							WRITE('Indiquez le code de l''adherent');
-						UNTIL true;
+							trouve := u_biblio.trouverAdherentParCode(
+								biblio.tabAdherents,
+								biblio.nbAdherents,
+								codeAdherent,
+								adherent);
+							IF NOT trouve THEN
+								WRITELN('Le code saisi ne correspond a aucun adherent. Reessayez.');
+						UNTIL trouve;
 						
+						REPEAT
+							WRITE('Saisissez l''ISBN du livre a emprunter : ');
+							READLN(isbn);
+							trouve := u_biblio.trouverLivreParISBN(
+								biblio.tabLivres,
+								biblio.nbLivres,
+								isbn,
+								livre
+							);
+							IF NOT trouve THEN
+								WRITELN('L''ISBN saisi n''existe pas dans la bibliotheque. Reessayez.');
+						UNTIL trouve;
 
-						WRITE('Saisissez l''ISBN du livre a emprunter : ')
-						//READLN()
+						 {
+							IF u_biblio.emprunterLivre(
+							biblio.tabEmprunts,
+							biblio.nbEmprunts,
+							livre,
+							adherent, 
+
+						) THEN }
 					END;
 				2 : BEGIN
 						
