@@ -1,5 +1,5 @@
 PROGRAM p_biblio;
-USES u_biblio, u_livre, u_adherent, crt;
+USES u_biblio, u_livre, u_adherent, crt, dos;
 
 	PROCEDURE initProgram();
 	BEGIN
@@ -111,6 +111,10 @@ VAR
 
 	// Variable booléenne pour effectuer des tests
 	trouve : BOOLEAN;
+
+	// Variable word inutile pour les appels sur la date système
+	dummyWord : WORD;
+
 BEGIN
 	initProgram(); // Va initialiser la variable globale compteurEmprunt a 0
 	u_biblio.initBiblio(biblio);
@@ -139,7 +143,7 @@ BEGIN
 				READLN(choix);
 			UNTIL (choix >= 0) AND (choix <= 14);
 			
-			// ClrScr; // clear screen (empeche de scroller et voir les données trop longues)
+			ClrScr; // clear screen (empeche de scroller et voir les données trop longues)
 			CASE choix OF 
 				1 : BEGIN
 						WRITELN('+--------------------+');
@@ -171,17 +175,20 @@ BEGIN
 								WRITELN('L''ISBN saisi n''existe pas dans la bibliotheque. Reessayez.');
 						UNTIL trouve;
 
-						 {
-							IF u_biblio.emprunterLivre(
+						{IF u_biblio.emprunterLivre(
 							biblio.tabEmprunts,
 							biblio.nbEmprunts,
 							livre,
 							adherent, 
 
-						) THEN }
+						) THEN
+							WRITELN('');
+						ELSE
+							WRITELN('Le livre n''est pas disponible.');}
 					END;
 				2 : BEGIN
-						
+						GetDate(Word(date.annee), Word(date.mois), Word(date.jour), dummyWord);
+						write(date.jour, '/', date.mois, '/', date.annee);
 					END;
 				3 : BEGIN
 						
