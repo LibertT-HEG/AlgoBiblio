@@ -35,7 +35,7 @@ USES u_biblio, u_livre, u_adherent, crt, dos;
 		biblio.tabLivres[biblio.nbLivres] := livre;
 		biblio.nbLivres := biblio.nbLivres + 1;
 
-		livre.isbn := '645-6-52-331802-2';
+		livre.isbn := '645-6-52-331802-1';
 		livre.titre := 'Martine euthanasie Medor';
 		livre.titre := 'M4RT1N';
 		livre.nbPages := 34;
@@ -151,7 +151,7 @@ BEGIN
 						WRITELN('+--------------------+');
 						
 						REPEAT
-							WRITE('Saisissez le code de l''adherent');
+							WRITE('Saisissez le code de l''adherent : ');
 							READLN(codeAdherent);
 							trouve := u_biblio.trouverAdherentParCode(
 								biblio.tabAdherents,
