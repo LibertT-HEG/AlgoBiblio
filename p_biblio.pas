@@ -19,7 +19,7 @@ USES u_biblio, u_livre, u_adherent, crt, dos;
 		//TODO : A compléter avec quelques adhérents et quelques livres
 		livre.isbn := '978-2-02-130452-7';
 		livre.titre := 'George et ses copains';
-		livre.titre := '4B1TB0L';
+		livre.codeAuteur := '4B1TB0L';
 		livre.nbPages := 123;
 		livre.nbExemplaires := 1;
 
@@ -37,7 +37,7 @@ USES u_biblio, u_livre, u_adherent, crt, dos;
 
 		livre.isbn := '645-6-52-331802-1';
 		livre.titre := 'Martine euthanasie Medor';
-		livre.titre := 'M4RT1N';
+		livre.codeAuteur := 'M4RT1N';
 		livre.nbPages := 34;
 		livre.nbExemplaires := 2;
 
@@ -46,14 +46,14 @@ USES u_biblio, u_livre, u_adherent, crt, dos;
 
 		livre.isbn := '645-6-52-331802-2';
 		livre.titre := 'L''histoire de Pascal du debut a la fin';
-		livre.titre := 'P4SC4L';
+		livre.codeAuteur := 'P4SC4L';
 		livre.nbPages := 22;
 		livre.nbExemplaires := 12;
 
 		biblio.tabLivres[biblio.nbLivres] := livre;
 		biblio.nbLivres := biblio.nbLivres + 1;
 
-		adherent.codeAdherent := 'A7578afSFwe';
+		adherent.codeAdherent := 'DAVE';
 		adherent.prenom := 'Dave';
 		adherent.nom := 'Quantic';
 		adherent.adresse.rue := 'Place du Telephone';
@@ -65,7 +65,7 @@ USES u_biblio, u_livre, u_adherent, crt, dos;
 		biblio.tabAdherents[biblio.nbAdherents] := adherent;
 		biblio.nbAdherents := biblio.nbAdherents + 1;
 
-		adherent.codeAdherent := 'f78aSFweA75';
+		adherent.codeAdherent := 'CLASSE';
 		adherent.prenom := 'George';
 		adherent.nom := 'Abitbol';
 		adherent.adresse.rue := 'Rue de la Classe';
@@ -77,7 +77,7 @@ USES u_biblio, u_livre, u_adherent, crt, dos;
 		biblio.tabAdherents[biblio.nbAdherents] := adherent;
 		biblio.nbAdherents := biblio.nbAdherents + 1;
 
-		adherent.codeAdherent := 'A7578afSFwe';
+		adherent.codeAdherent := 'COQUET';
 		adherent.prenom := 'Jose';
 		adherent.nom := 'Denomme';
 		adherent.adresse.rue := 'Rue de la Coquetterie';
@@ -197,7 +197,7 @@ BEGIN
 				4 : BEGIN
 						
 					END;
-				{5 : BEGIN
+				5 : BEGIN
 						REPEAT
 							WRITE('Saisissez l''ISBN du livre a emprunter : ');
 							READLN(isbn);
@@ -213,7 +213,7 @@ BEGIN
 						u_biblio.trouverIndiceLivre(biblio.tabLivres, biblio.nbLivres, livre, indiceLivre);
 						u_livre.ajouterExemplaire(biblio.tabLivres[indiceLivre]);
 					END;
-				6 : BEGIN
+				{6 : BEGIN
 						
 					END;
 				7 : BEGIN
