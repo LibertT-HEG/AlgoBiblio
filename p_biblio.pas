@@ -204,7 +204,7 @@ BEGIN
 				9 : BEGIN
 						WRITELN('Saisir code adhérent :');
 						READLN(codeAdherent);
-						if(u_biblio.trouverAdherentParCode(biblio.tabAdherents, biblio.nbAdherents, codeAdherent; adherent)) then
+						if(u_biblio.trouverAdherentParCode(biblio.tabAdherents, biblio.nbAdherents, codeAdherent, adherent)) then
 							u_adherent.afficherAdherent(adherent)
 						else
 							WRITELN('Erreur. Le code adhérent saisi n''existe pas.');
@@ -213,7 +213,7 @@ BEGIN
 						WRITELN('Saisir ISBN livre :');
 						READLN(isbn);
 						if(u_biblio.trouverLivreParISBN(biblio.tabLivres, biblio.nbLivres, isbn, livre)) then
-							if u_livre.supprimerExemplaire(livre, biblio.tabEmprunt, biblio.nbEmprunts) then
+							if u_livre.supprimerExemplaire(livre, biblio.tabEmprunts, biblio.nbEmprunts) then
 								WRITELN('Exemplaire supprimé.')
 							else
 								WRITELN('Impossible de supprimer un exemplaire de ce livre. Aucun exemplaire disponible ou existant');
@@ -224,7 +224,7 @@ BEGIN
 						WRITELN('Saisir ISBN livre :');
 						READLN(isbn);
 						if(u_biblio.trouverLivreParISBN(biblio.tabLivres, biblio.nbLivres, isbn, livre)) then
-							if u_biblio.supprimerLivre(biblio.tabLivres, biblio.nbLivres, livre, biblio.tabEmprunt, biblio.nbEmprunts) then
+							if u_biblio.supprimerLivre(biblio.tabLivres, biblio.nbLivres, livre, biblio.tabEmprunts, biblio.nbEmprunts) then
 								WRITELN('Livre supprimé.')
 							else
 								WRITELN('Impossible de supprimer ce livre. Il se peut que des exemplaires soient actuellement empruntés.');
@@ -235,7 +235,7 @@ BEGIN
 						WRITELN('Saisir code adhérent :');
 						READLN(codeAdherent);
 						if(u_biblio.trouverAdherentParCode(biblio.tabAdherents, biblio.nbAdherents, codeAdherent; adherent)) then
-							if u_biblio.supprimerAdherent(biblio.tabAdherents, biblio.nbAdherents, adherent, biblio.tabEmprunt, biblio.nbEmprunts) then
+							if u_biblio.supprimerAdherent(biblio.tabAdherents, biblio.nbAdherents, adherent, biblio.tabEmprunts, biblio.nbEmprunts) then
 								WRITELN('Adhérent supprimé.')
 							else
 								WRITELN('Impossible de supprimer cet adhérent. Il se peut que des livres soient actuellement empruntés par cet adhérent.');
