@@ -193,7 +193,27 @@ BEGIN
 						WRITELN('| Rendre un livre |');
 						WRITELN('+-----------------+');
 
-						
+						REPEAT
+							WRITE('Saisissez le numero d''emprunt du livre : ');
+							READLN(numEmprunt);
+							trouve := u_biblio.trouverEmpruntParNumero(
+								biblio.tabEmprunts,
+								biblio.nbEmprunts,
+								emprunt,
+								numEmprunt
+							);
+							IF NOT trouve THEN
+								WRITELN('Ce numero d''emprunt ne correspond pas a un emprunt de la bibliotheque. Reessayez.');
+						UNTIL trouve;
+
+						IF u_biblio.rendreLivre(
+							biblio.tabEmprunts,
+							biblio.nbEmprunts,
+							emprunt
+						) THEN
+							WRITELN('Le livre "', emprunt.livre.titre, '" a bien ete rendu.')
+						ELSE
+							WRITELN('Un probleme est survenu dans le rendu du livre.');
 					END;
 				3 : BEGIN
 						
