@@ -189,7 +189,11 @@ BEGIN
 							WRITELN('Ce livre n''est pas disponible.');
 					END;
 				2 : BEGIN
+						WRITELN('+-----------------+');
+						WRITELN('| Rendre un livre |');
+						WRITELN('+-----------------+');
 
+						
 					END;
 				3 : BEGIN
 						
@@ -213,7 +217,7 @@ BEGIN
 						u_biblio.trouverIndiceLivre(biblio.tabLivres, biblio.nbLivres, livre, indiceLivre);
 						u_livre.ajouterExemplaire(biblio.tabLivres[indiceLivre]);
 					END;
-				{6 : BEGIN
+				6 : BEGIN
 						
 					END;
 				7 : BEGIN
