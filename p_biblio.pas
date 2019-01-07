@@ -175,20 +175,21 @@ BEGIN
 								WRITELN('L''ISBN saisi n''existe pas dans la bibliotheque. Reessayez.');
 						UNTIL trouve;
 
-						{IF u_biblio.emprunterLivre(
+						GetDate(Word(date.annee), Word(date.mois), Word(date.jour), dummyWord);
+
+						IF u_biblio.emprunterLivre(
 							biblio.tabEmprunts,
 							biblio.nbEmprunts,
 							livre,
 							adherent, 
-
+							date
 						) THEN
-							WRITELN('');
+							WRITELN('L''emprunt du livre "', livre.titre, '" a ete fait avec succes.');
 						ELSE
-							WRITELN('Le livre n''est pas disponible.');}
+							WRITELN('Ce livre n''est pas disponible.');
 					END;
 				2 : BEGIN
-						GetDate(Word(date.annee), Word(date.mois), Word(date.jour), dummyWord);
-						write(date.jour, '/', date.mois, '/', date.annee);
+
 					END;
 				3 : BEGIN
 						
