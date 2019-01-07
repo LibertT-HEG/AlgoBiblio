@@ -190,7 +190,20 @@ BEGIN
 						
 					END;
 				5 : BEGIN
-						
+						REPEAT
+							WRITE('Saisissez l''ISBN du livre a emprunter : ');
+							READLN(isbn);
+							trouve := u_biblio.trouverLivreParISBN(
+								biblio.tabLivres,
+								biblio.nbLivres,
+								isbn,
+								livre
+							);
+							IF NOT trouve THEN
+								WRITELN('L''ISBN saisi n''existe pas dans la bibliotheque. Reessayez.');
+						UNTIL trouve;
+						u_biblio.trouverIndiceLivre(biblio.tabLivres, biblio.nbLivres, livre, indiceLivre);
+						u_livre.ajouterExemplaire(biblio.tabLivres[indiceLivre]);
 					END;
 				6 : BEGIN
 						
