@@ -218,7 +218,10 @@ BEGIN
 						u_livre.ajouterExemplaire(biblio.tabLivres[indiceLivre]);
 					END;
 				6 : BEGIN
-						
+						adherent := u_adherent.saisirAdherent();
+						// TODO: peut-etre faire un check si tout a bien fonctionne
+						u_biblio.ajouterNouvelAdherent(biblio.tabAdherents, biblio.nbAdherents; adherent);
+
 					END;
 				7 : BEGIN
 						
@@ -274,7 +277,7 @@ BEGIN
 							WRITELN('La bibliothèque est fermée.');
 					END;
 				14 : BEGIN
-						afficherBibliotheque(biblio);
+						u_biblio.afficherBibliotheque(biblio);
 					END;
 				0 : BEGIN
 						
