@@ -184,7 +184,7 @@ BEGIN
 							adherent, 
 							date
 						) THEN
-							WRITELN('L''emprunt du livre "', livre.titre, '" a ete fait avec succes.');
+							WRITELN('L''emprunt du livre "', livre.titre, '" a ete fait avec succes.')
 						ELSE
 							WRITELN('Ce livre n''est pas disponible.');
 					END;
@@ -197,7 +197,7 @@ BEGIN
 				4 : BEGIN
 						
 					END;
-				5 : BEGIN
+				{5 : BEGIN
 						REPEAT
 							WRITE('Saisissez l''ISBN du livre a emprunter : ');
 							READLN(isbn);
@@ -271,7 +271,7 @@ BEGIN
 					END;
 				14 : BEGIN
 						afficherBibliotheque(biblio);
-					END;
+					END;}
 				0 : BEGIN
 						
 					END;
