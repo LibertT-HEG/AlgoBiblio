@@ -243,7 +243,33 @@ BEGIN
 							WRITELN('Le livre "', livre.titre, '" n''est pas disponible.');
 					END;
 				4 : BEGIN
-						
+						WRITELN('+------------------------------------+');
+						WRITELN('| Ajouter un livre a la bibliotheque |');
+						WRITELN('+------------------------------------+');
+
+						livre = u_livre.saisirLivre();
+						// Si le livre existe déjà, on demande si on souhaite ajouter un exemplaire
+						IF u_biblio.trouverLivreParISBN(
+							biblio.tabLivres,
+							biblio.nbLivres,
+							livre.isbn,
+							livre
+						) THEN
+						BEGIN
+							WRITELN('Le livre "', livre.titre, '" existe deja. Ajouter un exemplaire ? (o/n)')
+							// TODO
+						END
+						ELSE
+						BEGIN
+							IF u_biblio.ajouterNouveauLivre(
+								biblio.tabLivres,
+								biblio.nbLivres,
+								livre
+							) THEN
+								WRITELN('Le livre "', livre.titre, '" a ete ajoute a la bibliotheque.')
+							ELSE
+								WRITELN('Un probleme est survenu dans l''ajout du livre.');
+						END;
 					END;
 				5 : BEGIN
 						REPEAT
