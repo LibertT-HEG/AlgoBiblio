@@ -109,6 +109,8 @@ VAR
 	// Attribut(s) d'un adhérent :
 	codeAdherent: STRING;
 
+	// Variable booléenne pour effectuer des tests
+	trouve : BOOLEAN;
 BEGIN
 	initProgram(); // Va initialiser la variable globale compteurEmprunt a 0
 	u_biblio.initBiblio(biblio);
@@ -137,10 +139,46 @@ BEGIN
 				READLN(choix);
 			UNTIL (choix >= 0) AND (choix <= 14);
 			
-			//ClrScr; clear screen (empeche de scroller et voir les données trop longues)
+			// ClrScr; // clear screen (empeche de scroller et voir les données trop longues)
 			CASE choix OF 
 				1 : BEGIN
+						WRITELN('+--------------------+');
+						WRITELN('| Emprunter un livre |');
+						WRITELN('+--------------------+');
 						
+						REPEAT
+							WRITE('Saisissez le code de l''adherent');
+							READLN(codeAdherent);
+							trouve := u_biblio.trouverAdherentParCode(
+								biblio.tabAdherents,
+								biblio.nbAdherents,
+								codeAdherent,
+								adherent);
+							IF NOT trouve THEN
+								WRITELN('Le code saisi ne correspond a aucun adherent. Reessayez.');
+						UNTIL trouve;
+						
+						REPEAT
+							WRITE('Saisissez l''ISBN du livre a emprunter : ');
+							READLN(isbn);
+							trouve := u_biblio.trouverLivreParISBN(
+								biblio.tabLivres,
+								biblio.nbLivres,
+								isbn,
+								livre
+							);
+							IF NOT trouve THEN
+								WRITELN('L''ISBN saisi n''existe pas dans la bibliotheque. Reessayez.');
+						UNTIL trouve;
+
+						 {
+							IF u_biblio.emprunterLivre(
+							biblio.tabEmprunts,
+							biblio.nbEmprunts,
+							livre,
+							adherent, 
+
+						) THEN }
 					END;
 				2 : BEGIN
 						
