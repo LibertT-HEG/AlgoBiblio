@@ -303,8 +303,7 @@ BEGIN
 						
 					END;
 				8 : BEGIN
-						readln(continuer);
-						printTitre(continuer);
+						
 					END;
 				9 : BEGIN
 						WRITELN('Saisir code adhérent :');
