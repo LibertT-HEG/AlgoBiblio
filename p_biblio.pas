@@ -248,25 +248,12 @@ BEGIN
 						WRITELN('+------------------------------------+');
 
 						livre := u_livre.saisirLivre();
-						// Si le livre existe déjà, on demande si on souhaite ajouter un exemplaire
-						IF u_biblio.trouverLivreParISBN(
+						IF NOT u_biblio.trouverLivreParISBN(
 							biblio.tabLivres,
 							biblio.nbLivres,
 							livre.isbn,
 							livre
 						) THEN
-						BEGIN
-							REPEAT
-								WRITE('Le livre "', livre.titre, '" existe deja. Ajouter un exemplaire ? (o/n) : ');
-								READLN(continuer);
-							UNTIL (continuer = 'o') OR (continuer = 'n');
-							IF continuer = 'o' THEN
-							BEGIN
-								u_biblio.trouverIndiceLivre(biblio.tabLivres, biblio.nbLivres, livre, indiceLivre);
-								u_livre.ajouterExemplaire(biblio.tabLivres[indiceLivre]);
-							END;
-						END
-						ELSE
 						BEGIN
 							IF u_biblio.ajouterNouveauLivre(
 								biblio.tabLivres,
