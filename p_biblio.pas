@@ -392,7 +392,7 @@ BEGIN
 						repeat
 							WRITELN('Saisir jour (Lundi, Mardi, ...)');
 							READLN(jourOuvert);
-						until ((LowerCase(jourOuvert = 'lundi')) OR (LowerCase(jourOuvert = 'mardi')) OR (LowerCase(jourOuvert = 'mercredi')) OR (LowerCase(jourOuvert = 'jeudi')) OR (LowerCase(jourOuvert = 'vendredi')) OR (LowerCase(jourOuvert = 'samedi')) OR (LowerCase(jourOuvert = 'dimanche')));
+						until ((LowerCase(jourOuvert) = 'lundi') OR (LowerCase(jourOuvert) = 'mardi') OR (LowerCase(jourOuvert) = 'mercredi') OR (LowerCase(jourOuvert) = 'jeudi') OR (LowerCase(jourOuvert) = 'vendredi') OR (LowerCase(jourOuvert) = 'samedi') OR (LowerCase(jourOuvert) = 'dimanche'));
 						repeat
 							WRITELN('Saisir Heure (9, 12, 13, ...)');
 							READLN(heureOuvert);
