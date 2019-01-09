@@ -21,9 +21,7 @@ USES u_biblio, u_livre, u_adherent, crt, dos;
 		END;
 		ligneHautBas := ligneHautBas + '+';
 		ligneTitre := '| ' + titre + ' |';
-		writeln(ligneHautBas);
-		writeln(ligneTitre);
-		writeln(ligneHautBas);
+		writeln(ligneHautBas + LineEnding + ligneTitre + LineEnding + ligneHautBas);
 	END;
 	
 	//Procédure chargeant déjà quelques données de base
