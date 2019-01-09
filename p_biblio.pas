@@ -1,5 +1,5 @@
 PROGRAM p_biblio;
-USES u_biblio, u_livre, u_adherent, crt, dos;
+USES u_biblio, u_livre, u_adherent, crt, dos, sysutils;
 
 	PROCEDURE initProgram();
 	BEGIN
@@ -389,10 +389,14 @@ BEGIN
 					END;
 				13 : BEGIN
 						printTitre('Verifier si la bibliotheque est ouverte');
-						WRITELN('Saisir jour (Lundi, Mardi, ...)');
-						READLN(jourOuvert);
-						WRITELN('Saisir Heure (9, 12, 13, ...)');
-						READLN(heureOuvert);
+						repeat
+							WRITELN('Saisir jour (Lundi, Mardi, ...)');
+							READLN(jourOuvert);
+						until ((LowerCase(jourOuvert = 'lundi')) OR (LowerCase(jourOuvert = 'mardi')) OR (LowerCase(jourOuvert = 'mercredi')) OR (LowerCase(jourOuvert = 'jeudi')) OR (LowerCase(jourOuvert = 'vendredi')) OR (LowerCase(jourOuvert = 'samedi')) OR (LowerCase(jourOuvert = 'dimanche')));
+						repeat
+							WRITELN('Saisir Heure (9, 12, 13, ...)');
+							READLN(heureOuvert);
+						until ((heureOuvert >= 0) AND (heureOuvert <= 23));
 						if(u_biblio.estOuverte(jourOuvert,heureOuvert)) then
 							WRITELN('La bibliotheque est ouverte.')
 						else
