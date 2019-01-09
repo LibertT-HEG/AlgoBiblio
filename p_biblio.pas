@@ -312,7 +312,7 @@ BEGIN
 				9 : BEGIN
 						printTitre('Recherche et affichage d''adherent');
 
-						WRITELN('Saisir code adhérent :');
+						WRITELN('Saisir code adherent :');
 						READLN(codeAdherent);
 						if(u_biblio.trouverAdherentParCode(biblio.tabAdherents, biblio.nbAdherents, codeAdherent, adherent)) then
 							u_adherent.afficherAdherent(adherent)
