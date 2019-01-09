@@ -247,7 +247,7 @@ BEGIN
 						WRITELN('| Ajouter un livre a la bibliotheque |');
 						WRITELN('+------------------------------------+');
 
-						livre = u_livre.saisirLivre();
+						livre := u_livre.saisirLivre();
 						// Si le livre existe déjà, on demande si on souhaite ajouter un exemplaire
 						IF u_biblio.trouverLivreParISBN(
 							biblio.tabLivres,
@@ -256,8 +256,15 @@ BEGIN
 							livre
 						) THEN
 						BEGIN
-							WRITELN('Le livre "', livre.titre, '" existe deja. Ajouter un exemplaire ? (o/n)')
-							// TODO
+							REPEAT
+								WRITE('Le livre "', livre.titre, '" existe deja. Ajouter un exemplaire ? (o/n) : ');
+								READLN(continuer);
+							UNTIL (continuer = 'o') OR (continuer = 'n');
+							IF continuer = 'o' THEN
+							BEGIN
+								u_biblio.trouverIndiceLivre(biblio.tabLivres, biblio.nbLivres, livre, indiceLivre);
+								u_livre.ajouterExemplaire(biblio.tabLivres[indiceLivre]);
+							END;
 						END
 						ELSE
 						BEGIN
@@ -290,7 +297,7 @@ BEGIN
 				6 : BEGIN
 						adherent := u_adherent.saisirAdherent();
 						// TODO: peut-etre faire un check si tout a bien fonctionne
-						u_biblio.ajouterNouvelAdherent(biblio.tabAdherents, biblio.nbAdherents; adherent);
+						u_biblio.ajouterNouvelAdherent(biblio.tabAdherents, biblio.nbAdherents, adherent);
 
 					END;
 				7 : BEGIN
