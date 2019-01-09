@@ -300,14 +300,45 @@ BEGIN
 
 						adherent := u_adherent.saisirAdherent();
 						// TODO: peut-etre faire un check si tout a bien fonctionne
+						// Tout doux...
 						u_biblio.ajouterNouvelAdherent(biblio.tabAdherents, biblio.nbAdherents, adherent);
 
 					END;
 				7 : BEGIN
 						printTitre('Recherche et affichage de livre(s)');
+
+						REPEAT
+							WRITE('Saisissez l''ISBN du livre a rechercher : ');
+							READLN(isbn);
+							trouve := u_biblio.trouverLivreParISBN(
+								biblio.tabLivres,
+								biblio.nbLivres,
+								isbn,
+								livre
+							);
+							IF NOT trouve THEN
+								WRITELN('L''ISBN saisi n''existe pas dans la bibliotheque. Reessayez.');
+						UNTIL trouve;
+
+						u_livre.afficherLivre(livre);
 					END;
 				8 : BEGIN
 						printTitre('Recherche et affichage d''emprunt');
+
+						REPEAT
+							WRITE('Saisissez le numero d''emprunt a rechercher : ');
+							READLN(numEmprunt);
+							trouve := u_biblio.trouverEmpruntParNumero(
+								biblio.tabEmprunts,
+								biblio.nbEmprunts,
+								emprunt,
+								numEmprunt
+							);
+							IF NOT trouve THEN
+								WRITELN('Ce numero d''emprunt ne correspond pas a un emprunt de la bibliotheque. Reessayez.');
+						UNTIL trouve;
+
+						u_livre.afficherEmprunt(emprunt);
 					END;
 				9 : BEGIN
 						printTitre('Recherche et affichage d''adherent');
