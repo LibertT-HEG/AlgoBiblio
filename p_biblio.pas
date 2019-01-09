@@ -396,7 +396,7 @@ BEGIN
 						if(u_biblio.estOuverte(jourOuvert,heureOuvert)) then
 							WRITELN('La bibliotheque est ouverte.')
 						else
-							WRITELN('La bibliothèque est fermee ou la saisie est incorrecte.');
+							WRITELN('La bibliotheque est fermee ou la saisie est incorrecte.');
 					END;
 				14 : BEGIN
 						printTitre('Afficher toutes les informations de la bibliotheque');
