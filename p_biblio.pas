@@ -278,6 +278,8 @@ BEGIN
 						END;
 					END;
 				5 : BEGIN
+						printTitre('Ajouter un exemplaire d''un livre');
+
 						REPEAT
 							WRITE('Saisissez l''ISBN du livre a ajouter : ');
 							READLN(isbn);
@@ -294,18 +296,22 @@ BEGIN
 						u_livre.ajouterExemplaire(biblio.tabLivres[indiceLivre]);
 					END;
 				6 : BEGIN
+						printTitre('Ajouter un nouvel adherent');
+
 						adherent := u_adherent.saisirAdherent();
 						// TODO: peut-etre faire un check si tout a bien fonctionne
 						u_biblio.ajouterNouvelAdherent(biblio.tabAdherents, biblio.nbAdherents, adherent);
 
 					END;
 				7 : BEGIN
-						
+						printTitre('Recherche et affichage de livre(s)');
 					END;
 				8 : BEGIN
-						
+						printTitre('Recherche et affichage d''emprunt');
 					END;
 				9 : BEGIN
+						printTitre('Recherche et affichage d''adherent');
+
 						WRITELN('Saisir code adhérent :');
 						READLN(codeAdherent);
 						if(u_biblio.trouverAdherentParCode(biblio.tabAdherents, biblio.nbAdherents, codeAdherent, adherent)) then
@@ -314,6 +320,8 @@ BEGIN
 							WRITELN('Erreur. Le code adhérent saisi n''existe pas.');
 					END;
 				10 : BEGIN
+						printTitre('Supprimer un exemplaire d''un livre');
+
 						WRITELN('Saisir ISBN livre :');
 						READLN(isbn);
 						if(u_biblio.trouverLivreParISBN(biblio.tabLivres, biblio.nbLivres, isbn, livre)) then
@@ -325,6 +333,8 @@ BEGIN
 							WRITELN('Erreur. L''ISBN saisi n''existe pas.');
 					END;
 				11 : BEGIN
+						printTitre('Supprimer un livre');
+
 						WRITELN('Saisir ISBN livre :');
 						READLN(isbn);
 						if(u_biblio.trouverLivreParISBN(biblio.tabLivres, biblio.nbLivres, isbn, livre)) then
@@ -336,6 +346,8 @@ BEGIN
 							WRITELN('Erreur. L''ISBN saisi n''existe pas.');
 					END;
 				12 : BEGIN
+						printTitre('Supprimer un adherent');
+						
 						WRITELN('Saisir code adhérent :');
 						READLN(codeAdherent);
 						if(u_biblio.trouverAdherentParCode(biblio.tabAdherents, biblio.nbAdherents, codeAdherent, adherent)) then
@@ -347,12 +359,16 @@ BEGIN
 							WRITELN('Erreur. Le code adhérent saisi n''existe pas.');
 					END;
 				13 : BEGIN
+						printTitre('Verifier si la bibliotheque est ouverte');
+
 						if(u_biblio.estOuverte(jourOuvert,heureOuvert)) then
 							WRITELN('La bibliothèque est ouverte.')
 						else
 							WRITELN('La bibliothèque est fermée.');
 					END;
 				14 : BEGIN
+						printTitre('Afficher toutes les informations de la bibliotheque');
+						
 						u_biblio.afficherBibliotheque(biblio);
 					END;
 				0 : BEGIN
