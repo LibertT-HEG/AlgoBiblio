@@ -264,10 +264,14 @@ BEGIN
 							WRITELN('Erreur. Le code adhérent saisi n''existe pas.');
 					END;
 				13 : BEGIN
+						WRITELN('Saisir jour (Lundi, Mardi, ...)');
+						READLN(jourOuvert);
+						WRITELN('Saisir Heure (9, 12, 13, ...)');
+						READLN(heureOuvert);
 						if(u_biblio.estOuverte(jourOuvert,heureOuvert)) then
 							WRITELN('La bibliothèque est ouverte.')
 						else
-							WRITELN('La bibliothèque est fermée.');
+							WRITELN('La bibliothèque est fermée ou la saisie est incorrecte.');
 					END;
 				14 : BEGIN
 						afficherBibliotheque(biblio);
