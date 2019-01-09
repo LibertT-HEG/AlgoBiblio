@@ -317,7 +317,7 @@ BEGIN
 						if(u_biblio.trouverAdherentParCode(biblio.tabAdherents, biblio.nbAdherents, codeAdherent, adherent)) then
 							u_adherent.afficherAdherent(adherent)
 						else
-							WRITELN('Erreur. Le code adhérent saisi n''existe pas.');
+							WRITELN('Erreur. Le code adherent saisi n''existe pas.');
 					END;
 				10 : BEGIN
 						printTitre('Supprimer un exemplaire d''un livre');
@@ -326,7 +326,7 @@ BEGIN
 						READLN(isbn);
 						if(u_biblio.trouverLivreParISBN(biblio.tabLivres, biblio.nbLivres, isbn, livre)) then
 							if u_livre.supprimerExemplaire(livre, biblio.tabEmprunts, biblio.nbEmprunts) then
-								WRITELN('Exemplaire supprimé.')
+								WRITELN('Exemplaire supprime.')
 							else
 								WRITELN('Impossible de supprimer un exemplaire de ce livre. Aucun exemplaire disponible ou existant')
 						else
@@ -339,32 +339,32 @@ BEGIN
 						READLN(isbn);
 						if(u_biblio.trouverLivreParISBN(biblio.tabLivres, biblio.nbLivres, isbn, livre)) then
 							if u_biblio.supprimerLivre(biblio.tabLivres, biblio.nbLivres, livre, biblio.tabEmprunts, biblio.nbEmprunts) then
-								WRITELN('Livre supprimé.')
+								WRITELN('Livre supprime.')
 							else
-								WRITELN('Impossible de supprimer ce livre. Il se peut que des exemplaires soient actuellement empruntés.')
+								WRITELN('Impossible de supprimer ce livre. Il se peut que des exemplaires soient actuellement empruntes.')
 						else
 							WRITELN('Erreur. L''ISBN saisi n''existe pas.');
 					END;
 				12 : BEGIN
 						printTitre('Supprimer un adherent');
 						
-						WRITELN('Saisir code adhérent :');
+						WRITELN('Saisir code adherent :');
 						READLN(codeAdherent);
 						if(u_biblio.trouverAdherentParCode(biblio.tabAdherents, biblio.nbAdherents, codeAdherent, adherent)) then
 							if u_biblio.supprimerAdherent(biblio.tabAdherents, biblio.nbAdherents, adherent, biblio.tabEmprunts, biblio.nbEmprunts) then
-								WRITELN('Adhérent supprimé.')
+								WRITELN('Adherent supprime.')
 							else
-								WRITELN('Impossible de supprimer cet adhérent. Il se peut que des livres soient actuellement empruntés par cet adhérent.')
+								WRITELN('Impossible de supprimer cet adherent. Il se peut que des livres soient actuellement empruntes par cet adherent.')
 						else
-							WRITELN('Erreur. Le code adhérent saisi n''existe pas.');
+							WRITELN('Erreur. Le code adherent saisi n''existe pas.');
 					END;
 				13 : BEGIN
 						printTitre('Verifier si la bibliotheque est ouverte');
 
 						if(u_biblio.estOuverte(jourOuvert,heureOuvert)) then
-							WRITELN('La bibliothèque est ouverte.')
+							WRITELN('La bibliotheque est ouverte.')
 						else
-							WRITELN('La bibliothèque est fermée.');
+							WRITELN('La bibliotheque est fermee.');
 					END;
 				14 : BEGIN
 						printTitre('Afficher toutes les informations de la bibliotheque');
