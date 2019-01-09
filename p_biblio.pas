@@ -257,7 +257,7 @@ BEGIN
 							WRITELN('Le livre "', livre.titre, '" n''est pas disponible.');
 					END;
 				4 : BEGIN						
-						printTitre(Ajouter un livre a la bibliotheque);	
+						printTitre('Ajouter un livre a la bibliotheque');	
 
 						livre := u_livre.saisirLivre();
 						IF NOT u_biblio.trouverLivreParISBN(
