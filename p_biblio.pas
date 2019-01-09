@@ -5,6 +5,26 @@ USES u_biblio, u_livre, u_adherent, crt, dos;
 	BEGIN
 		u_livre.initUnite();
 	END;
+
+	PROCEDURE printTitre(titre : STRING);
+	VAR
+		longueur : integer;
+		ligneHautBas : string;
+		ligneTitre : string;
+		ind : integer;
+	BEGIN
+		longueur := Length(titre);
+		ligneHautBas := '+';
+		FOR ind := 0 TO longueur+1 DO
+		BEGIN
+			ligneHautBas := ligneHautBas + '-';
+		END;
+		ligneHautBas := ligneHautBas + '+';
+		ligneTitre := '| ' + titre + ' |';
+		writeln(ligneHautBas);
+		writeln(ligneTitre);
+		writeln(ligneHautBas);
+	END;
 	
 	//Procédure chargeant déjà quelques données de base
 	PROCEDURE chargeDonneesInitiales(var biblio:Tbibliotheque; var adherent: Tadherent; var livre: Tlivre);
@@ -146,9 +166,7 @@ BEGIN
 			ClrScr; // clear screen (empeche de scroller et voir les données trop longues)
 			CASE choix OF 
 				1 : BEGIN
-						WRITELN('+--------------------+');
-						WRITELN('| Emprunter un livre |');
-						WRITELN('+--------------------+');
+						printTitre('Emprunter un livre');
 						
 						REPEAT
 							WRITE('Saisissez le code de l''adherent : ');
@@ -189,9 +207,7 @@ BEGIN
 							WRITELN('Ce livre n''est pas disponible.');
 					END;
 				2 : BEGIN
-						WRITELN('+-----------------+');
-						WRITELN('| Rendre un livre |');
-						WRITELN('+-----------------+');
+						printTitre('Rendre un livre');
 
 						REPEAT
 							WRITE('Saisissez le numero d''emprunt du livre : ');
@@ -216,9 +232,7 @@ BEGIN
 							WRITELN('Un probleme est survenu dans le rendu du livre.');
 					END;
 				3 : BEGIN
-						WRITELN('+---------------------------------------+');
-						WRITELN('| Verifier la disponibilite d''un livre |');
-						WRITELN('+---------------------------------------+');
+						printTitre('Verifier la disponibilite d''un livre');
 						
 						REPEAT
 							WRITE('Saisissez l''ISBN du livre : ');
@@ -242,10 +256,8 @@ BEGIN
 						ELSE
 							WRITELN('Le livre "', livre.titre, '" n''est pas disponible.');
 					END;
-				4 : BEGIN
-						WRITELN('+------------------------------------+');
-						WRITELN('| Ajouter un livre a la bibliotheque |');
-						WRITELN('+------------------------------------+');
+				4 : BEGIN						
+						printTitre(Ajouter un livre a la bibliotheque);	
 
 						livre := u_livre.saisirLivre();
 						IF NOT u_biblio.trouverLivreParISBN(
@@ -291,7 +303,8 @@ BEGIN
 						
 					END;
 				8 : BEGIN
-						
+						readln(continuer);
+						printTitre(continuer);
 					END;
 				9 : BEGIN
 						WRITELN('Saisir code adhérent :');
