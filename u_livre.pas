@@ -76,23 +76,23 @@ IMPLEMENTATION
 		BEGIN
 			decoration := decoration + sequence;
 		END;
-		Writeln(decoration, ' ', titre, ' ', decoration);
+		WRITELN(decoration, ' ', titre, ' ', decoration);
 	END;
 
 	FUNCTION saisirLivre(): Tlivre;
 	VAR
 		livre : Tlivre;
 	BEGIN
-		write('ISBN : ');
-		readln(livre.isbn);
-		write('Titre : ');
-		readln(livre.titre);
-		write('Code de l''auteur : ');
-		readln(livre.codeAuteur); // Test existe ?
-		write('Nombre de pages : ');
-		readln(livre.nbPages); // Test si c'est un nombre
-		write('Nombre d''exemplaires : ');
-		readln(livre.nbExemplaires); // Test si c'est un nombre
+		WRITE('ISBN : ');
+		READLN(livre.isbn);
+		WRITE('Titre : ');
+		READLN(livre.titre);
+		WRITE('Code de l''auteur : ');
+		READLN(livre.codeAuteur); // Test existe ?
+		WRITE('Nombre de pages : ');
+		READLN(livre.nbPages); // Test si c'est un nombre
+		WRITE('Nombre d''exemplaires : ');
+		READLN(livre.nbExemplaires); // Test si c'est un nombre
 
 		saisirLivre := livre;
 	END;
@@ -100,10 +100,10 @@ IMPLEMENTATION
 	PROCEDURE afficherLivre(livre:Tlivre);
 	BEGIN
 		afficherTitre(livre.titre, '=', 10);
-		writeln('ISBN : ', livre.isbn);
-		writeln('Code auteur : ', livre.codeAuteur);
-		writeln('Nombre de pages : ', livre.nbPages);
-		writeln('Nombre d''exemplaires : ', livre.nbExemplaires);
+		WRITELN('ISBN : ', livre.isbn);
+		WRITELN('Code auteur : ', livre.codeAuteur);
+		WRITELN('Nombre de pages : ', livre.nbPages);
+		WRITELN('Nombre d''exemplaires : ', livre.nbExemplaires);
 		
 	END;
 	
@@ -117,14 +117,14 @@ IMPLEMENTATION
 	
 	PROCEDURE afficherEmprunt(emprunt:Temprunt);
 	BEGIN
-		writeln('Numéro de l''emprunt : ', emprunt.numeroEmprunt);
-		writeln('Livre emprunté :');
-		writeln('- ISBN : ', emprunt.livre.isbn);
-		writeln('- Code auteur : ', emprunt.livre.codeAuteur);
-		writeln('- Nombre de pages : ', emprunt.livre.nbPages);
-		writeln('- Nombre d''exemplaires : ', emprunt.livre.nbExemplaires);
-		writeln('Emprunté par : ', emprunt.adherent.prenom, ' ', emprunt.adherent.nom);
-		writeln('Emprunté le : ', emprunt.dateEmprunt.jour,'.',emprunt.dateEmprunt.mois,'.',emprunt.dateEmprunt.annee);
+		WRITELN('Numéro de l''emprunt : ', emprunt.numeroEmprunt);
+		WRITELN('Livre emprunté :');
+		WRITELN('- ISBN : ', emprunt.livre.isbn);
+		WRITELN('- Code auteur : ', emprunt.livre.codeAuteur);
+		WRITELN('- Nombre de pages : ', emprunt.livre.nbPages);
+		WRITELN('- Nombre d''exemplaires : ', emprunt.livre.nbExemplaires);
+		WRITELN('Emprunté par : ', emprunt.adherent.prenom, ' ', emprunt.adherent.nom);
+		WRITELN('Emprunté le : ', emprunt.dateEmprunt.jour,'.',emprunt.dateEmprunt.mois,'.',emprunt.dateEmprunt.annee);
 
 	END;
 	
@@ -139,11 +139,11 @@ IMPLEMENTATION
 	BEGIN
 		nbLivreEmprunt  := 0;
 		supprimerExemplaire := false;
-		if((estDisponible(livre,tabEmprunt,nbEmprunts))) then
-		begin
+		IF estDisponible(livre,tabEmprunt,nbEmprunts) THEN
+		BEGIN
 			livre.nbExemplaires := livre.nbExemplaires-1;
 			supprimerExemplaire := true;
-		end;
+		END;
 	END;
 	
 	FUNCTION compteExemplairesEmpruntes(livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):INTEGER;
@@ -186,6 +186,4 @@ IMPLEMENTATION
 		END;
 		compteEmpruntsParAdherent := nbEmpruntsAdherent;
 	END;
-
-	
 END.

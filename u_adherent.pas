@@ -32,48 +32,48 @@ IMPLEMENTATION
 	VAR
 		a : Tadherent;
 	BEGIN
-		write('Code adherent : ');
-		readln(a.codeAdherent);
-		write('Nom : ');
-		readln(a.nom);
-		write('Prenom : ');
-		readln(a.prenom);
+		WRITE('Code adherent : ');
+		READLN(a.codeAdherent);
+		WRITE('Nom : ');
+		READLN(a.nom);
+		WRITE('Prenom : ');
+		READLN(a.prenom);
 		
-		writeln('Adresse : ');
-		write('Rue : ');
-		readln(a.adresse.rue);
-		write('Numero rue : ');
-		readln(a.adresse.numeroRue);
-		write('NPA : ');
-		readln(a.adresse.npa);
-		write('Ville : ');
-		readln(a.adresse.ville);
-		write('Pays : ');
-		readln(a.adresse.pays);
+		WRITELN('Adresse : ');
+		WRITE('Rue : ');
+		READLN(a.adresse.rue);
+		WRITE('Numero rue : ');
+		READLN(a.adresse.numeroRue);
+		WRITE('NPA : ');
+		READLN(a.adresse.npa);
+		WRITE('Ville : ');
+		READLN(a.adresse.ville);
+		WRITE('Pays : ');
+		READLN(a.adresse.pays);
 
 		saisirAdherent := a;
 	END;
 	
 	// Affiche un message sous forme de titre entouré d'une séquence de caractères sur chaque côté
-	PROCEDURE afficherTitre(titre:string; sequence: string; repetition:integer);
+	PROCEDURE afficherTitre(titre:STRING; sequence: STRING; repetition:INTEGER);
 	VAR
-		ind : integer;
-		decoration : string;
+		ind : INTEGER;
+		decoration : STRING;
 	BEGIN
 		decoration := '';
 		FOR ind := 0 TO repetition DO
 		BEGIN
 			decoration := decoration + sequence;
 		END;
-		Writeln(decoration, ' ', titre, ' ', decoration);
+		WRITELN(decoration, ' ', titre, ' ', decoration);
 	END;
 	
 	PROCEDURE afficherAdherent(adherent:Tadherent);
 	BEGIN
 		afficherTitre('Adherent code "' + adherent.codeAdherent + '"', '=', 10);
-		writeln(adherent.prenom, ' ', adherent.nom);
-		writeln(adherent.adresse.rue, ' ', adherent.adresse.numeroRue);
-		writeln(adherent.adresse.npa, ' ', adherent.adresse.ville, '(', adherent.adresse.pays, ')');
+		WRITELN(adherent.prenom, ' ', adherent.nom);
+		WRITELN(adherent.adresse.rue, ' ', adherent.adresse.numeroRue);
+		WRITELN(adherent.adresse.npa, ' ', adherent.adresse.ville, '(', adherent.adresse.pays, ')');
 	END;
 
 END.

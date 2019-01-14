@@ -6,6 +6,7 @@ USES u_biblio, u_livre, u_adherent, crt, dos, sysutils;
 		u_livre.initUnite();
 	END;
 
+	// Affiche une chaine de caracteres encadrée
 	PROCEDURE printTitre(titre : STRING);
 	VAR
 		longueur : integer;
@@ -21,7 +22,7 @@ USES u_biblio, u_livre, u_adherent, crt, dos, sysutils;
 		END;
 		ligneHautBas := ligneHautBas + '+';
 		ligneTitre := '| ' + titre + ' |';
-		writeln(ligneHautBas + LineEnding + ligneTitre + LineEnding + ligneHautBas);
+		WRITELN(ligneHautBas + LineEnding + ligneTitre + LineEnding + ligneHautBas);
 	END;
 	
 	//Procédure chargeant déjà quelques données de base
@@ -158,10 +159,11 @@ BEGIN
 			WRITELN('14. Afficher toutes les informations de la bibliotheque');
 			WRITELN('0. Quitter l''application');
 			REPEAT
+				WRITE('Choix : ');
 				READLN(choix);
 			UNTIL (choix >= 0) AND (choix <= 14);
 			
-			ClrScr; // clear screen (empeche de scroller et voir les données trop longues)
+			ClrScr;
 			CASE choix OF 
 				1 : BEGIN
 						printTitre('Emprunter un livre');

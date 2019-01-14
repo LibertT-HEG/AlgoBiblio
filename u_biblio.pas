@@ -23,7 +23,7 @@ INTERFACE
 	// Affiche l'ensemble des informations de la bibliothèque
 	PROCEDURE afficherBibliotheque(biblio:Tbibliotheque);
 	// Permet de savoir si la bibliothèque est ouverte ou non ! Elle est ouverte du mardi au samedi de 8h à 12h et de 14h à 20h, et le lundi de 14h à 18h !
-	FUNCTION estOuverte(jour:String; heure:INTEGER):BOOLEAN;
+	FUNCTION estOuverte(jour:STRING; heure:INTEGER):BOOLEAN;
 	
 	// Ajoute un nouveau livre à la bibliothèque
 	FUNCTION ajouterNouveauLivre(var tabLivres : TypeTabLivres; var nbLivres : INTEGER; nouveauLivre : Tlivre) : BOOLEAN; 
@@ -66,48 +66,48 @@ IMPLEMENTATION
 
 	// Affiche un message sous forme de titre entouré d'une séquence de caractères sur chaque côté
 	// deja repetée dans deux fichiers différents faudra surement l'isoler dans un module à part
-	PROCEDURE afficherTitre(titre:string; sequence: string; repetition:integer);
+	PROCEDURE afficherTitre(titre:STRING; sequence: STRING; repetition:INTEGER);
 	VAR
-		ind : integer;
-		decoration : string;
+		ind : INTEGER;
+		decoration : STRING;
 	BEGIN
 		decoration := '';
 		FOR ind := 0 TO repetition DO
 		BEGIN
 			decoration := decoration + sequence;
 		END;
-		Writeln(decoration, ' ', titre, ' ', decoration);
+		WRITELN(decoration, ' ', titre, ' ', decoration);
 	END;
 	
 	PROCEDURE afficherBibliotheque(biblio:Tbibliotheque);
 	VAR
-		ind : integer;
+		ind : INTEGER;
 	BEGIN
 		// nom de la bibliotheque
 		afficherTitre(biblio.nomBiblio, '=', 10);
 
-		Writeln(biblio.adresse.rue, ' ', biblio.adresse.numeroRue, ', ', biblio.adresse.npa, ' ', biblio.adresse.ville, ' (', biblio.adresse.pays, ')');
-		Writeln(LineEnding, 'Liste des livres de la bibliotheque : ');
+		WRITELN(biblio.adresse.rue, ' ', biblio.adresse.numeroRue, ', ', biblio.adresse.npa, ' ', biblio.adresse.ville, ' (', biblio.adresse.pays, ')');
+		WRITELN(LineEnding, 'Liste des livres de la bibliotheque : ');
 		// lister les livres
-		for ind := 0 to biblio.nbLivres - 1 do
-		begin
-			Writeln('ISBN : ', biblio.tabLivres[ind].isbn, ' Titre : ', biblio.tabLivres[ind].titre, ' Code d''auteur : ', biblio.tabLivres[ind].codeAuteur, ' Nombre de pages : ', biblio.tabLivres[ind].nbPages, ' Exemplaires : ', biblio.tabLivres[ind].nbExemplaires);
-		end;
-		Writeln(LineEnding, 'Liste des adherents de la bibliotheque : ');
-		for ind := 0 to biblio.nbAdherents - 1 do
-		begin
-			writeln(biblio.tabAdherents[ind].prenom, ' ', biblio.tabAdherents[ind].nom, ' (', biblio.tabAdherents[ind].codeAdherent, ') ');
-			writeln(biblio.tabAdherents[ind].adresse.rue, ' ', biblio.tabAdherents[ind].adresse.numeroRue, ', ', biblio.tabAdherents[ind].adresse.npa, ' ', biblio.tabAdherents[ind].adresse.ville, ' (', biblio.tabAdherents[ind].adresse.pays, ')');
-		end;
-		Writeln(LineEnding, 'Liste des emprunts en cours : ');
-		for ind := 0 to biblio.nbEmprunts - 1 do
-		begin
-			Writeln('Numero : ', biblio.tabEmprunts[ind].numeroEmprunt, ' Livre : ', biblio.tabEmprunts[ind].livre.titre, ' (', biblio.tabEmprunts[ind].livre.isbn, '). Adherent : ', biblio.tabEmprunts[ind].adherent.prenom, ' ', biblio.tabEmprunts[ind].adherent.nom, ' (', biblio.tabEmprunts[ind].adherent.codeAdherent, ') le ', biblio.tabEmprunts[ind].dateEmprunt.jour, '.', biblio.tabEmprunts[ind].dateEmprunt.mois, '.', biblio.tabEmprunts[ind].dateEmprunt.annee, '.');
-		end;
+		FOR ind := 0 TO biblio.nbLivres - 1 DO
+		BEGIN
+			WRITELN('ISBN : ', biblio.tabLivres[ind].isbn, ' Titre : ', biblio.tabLivres[ind].titre, ' Code d''auteur : ', biblio.tabLivres[ind].codeAuteur, ' Nombre de pages : ', biblio.tabLivres[ind].nbPages, ' Exemplaires : ', biblio.tabLivres[ind].nbExemplaires);
+		END;
+		WRITELN(LineEnding, 'Liste des adherents de la bibliotheque : ');
+		FOR ind := 0 TO biblio.nbAdherents - 1 DO
+		BEGIN
+			WRITELN(biblio.tabAdherents[ind].prenom, ' ', biblio.tabAdherents[ind].nom, ' (', biblio.tabAdherents[ind].codeAdherent, ') ');
+			WRITELN(biblio.tabAdherents[ind].adresse.rue, ' ', biblio.tabAdherents[ind].adresse.numeroRue, ', ', biblio.tabAdherents[ind].adresse.npa, ' ', biblio.tabAdherents[ind].adresse.ville, ' (', biblio.tabAdherents[ind].adresse.pays, ')');
+		END;
+		WRITELN(LineEnding, 'Liste des emprunts en cours : ');
+		FOR ind := 0 TO biblio.nbEmprunts - 1 DO
+		BEGIN
+			WRITELN('Numero : ', biblio.tabEmprunts[ind].numeroEmprunt, ' Livre : ', biblio.tabEmprunts[ind].livre.titre, ' (', biblio.tabEmprunts[ind].livre.isbn, '). Adherent : ', biblio.tabEmprunts[ind].adherent.prenom, ' ', biblio.tabEmprunts[ind].adherent.nom, ' (', biblio.tabEmprunts[ind].adherent.codeAdherent, ') le ', biblio.tabEmprunts[ind].dateEmprunt.jour, '.', biblio.tabEmprunts[ind].dateEmprunt.mois, '.', biblio.tabEmprunts[ind].dateEmprunt.annee, '.');
+		END;
 	END;
 	
 	// Permet de savoir si la bibliothèque est ouverte ou non ! Elle est ouverte du mardi au samedi de 8h à 12h et de 14h à 20h, et le lundi de 14h à 18h !
-	FUNCTION estOuverte(jour:String; heure:INTEGER):BOOLEAN;
+	FUNCTION estOuverte(jour:STRING; heure:INTEGER):BOOLEAN;
 	BEGIN
 		estOuverte := false;
 
@@ -135,13 +135,13 @@ IMPLEMENTATION
 	
 	FUNCTION supprimerLivre(var tabLivres : TypeTabLivres; var nbLivres : INTEGER; livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):BOOLEAN;
 	VAR
-		ind : integer;
-		indiceLivre : integer;
+		ind : INTEGER;
+		indiceLivre : INTEGER;
 	BEGIN
 		supprimerLivre := false;
 		indiceLivre := -1;
-		if not(u_livre.compteExemplairesEmpruntes(livre, tabEmprunt, nbEmprunts) > 0) then
-			if trouverIndiceLivre(tabLivres, nbLivres, livre, indiceLivre) then
+		IF NOT (u_livre.compteExemplairesEmpruntes(livre, tabEmprunt, nbEmprunts) > 0) THEN
+			IF trouverIndiceLivre(tabLivres, nbLivres, livre, indiceLivre) THEN
 			BEGIN
 			IF nbLivres > (indiceLivre + 1) THEN
 				FOR ind := indiceLivre TO nbLivres - 2 DO
@@ -152,97 +152,98 @@ IMPLEMENTATION
 
 	FUNCTION trouverIndiceLivre(tabLivres : TypeTabLivres; nbLivres : INTEGER; livre:Tlivre; var indiceRetour:INTEGER):BOOLEAN;
 	VAR
-		ind : integer;
+		ind : INTEGER;
 	BEGIN
 		trouverIndiceLivre := false;
-		for ind := 0 to nbLivres - 1 do
-			if tabLivres[ind].isbn = livre.isbn then
-			begin
+		FOR ind := 0 TO nbLivres - 1 DO
+			IF tabLivres[ind].isbn = livre.isbn THEN
+			BEGIN
 				indiceRetour := ind;
 				trouverIndiceLivre := true;
-			end;
+			END;
 	END;
 	
 	FUNCTION trouverLivreParISBN(tabLivres : TypeTabLivres; nbLivres : INTEGER; isbn:STRING; var livre:Tlivre):BOOLEAN;
 	VAR
-		ind : integer;
+		ind : INTEGER;
 	BEGIN
 		trouverLivreParISBN := false;
-		for ind := 0 to nbLivres do
-			if tabLivres[ind].isbn = isbn then
-			begin
+		FOR ind := 0 TO nbLivres DO
+			IF tabLivres[ind].isbn = isbn THEN
+			BEGIN
 				livre := tabLivres[ind];
 				trouverLivreParISBN := true;
-			end;
+			END;
 	END;
 	
 	FUNCTION trouverLivresParAuteur(tabLivres : TypeTabLivres; nbLivres : INTEGER; codeAuteur:STRING; var tabLivresTrouves:TypeTabLivres; var nbLivresTrouves:INTEGER):BOOLEAN;
 	VAR
-		ind : integer;
+		ind : INTEGER;
 	BEGIN
 		trouverLivresParAuteur := false;
-		for ind := 0 to nbLivres do
-			if tabLivres[ind].codeAuteur = codeAuteur then
-			begin
+		FOR ind := 0 TO nbLivres DO
+			IF tabLivres[ind].codeAuteur = codeAuteur THEN
+			BEGIN
 				tabLivresTrouves[nbLivresTrouves] := tabLivres[ind];
 				nbLivresTrouves := nbLivresTrouves + 1;
 				trouverLivresParAuteur := true;
-			end;
+			END;
 	END;
 	//ADRIEN
 	FUNCTION ajouterNouvelAdherent(var tabAdherents:TypeTabAdherents; var nbAdherents:INTEGER; adherent:Tadherent) : BOOLEAN;
 	BEGIN
 		ajouterNouvelAdherent := false;
-		if(nbAdherents<Cmax) THEN
-		begin
+		IF nbAdherents < Cmax THEN
+		BEGIN
 			tabAdherents[nbAdherents] := adherent;
 			nbAdherents := nbAdherents+1;
 			ajouterNouvelAdherent := true;
-		end;
+		END;
 	END;
 	
 	FUNCTION supprimerAdherent(var tabAdherents:TypeTabAdherents; var nbAdherents:INTEGER; adherent:Tadherent; tabEmprunt:TypeTabEmprunts; nbEmprunts : INTEGER):BOOLEAN;
 	VAR
-		ind : integer;
-		indiceAdherent : integer;
+		ind : INTEGER;
+		indiceAdherent : INTEGER;
 	BEGIN
 		supprimerAdherent := false;
-		IF((compteEmpruntsParAdherent(tabEmprunt,nbEmprunts,adherent) = 0)) AND (trouverIndiceAdherent(tabAdherents, nbAdherents, adherent, indiceAdherent)) then
-		begin
-			if not(indiceAdherent+1 = nbAdherents) then
-			begin
-				for ind := indiceAdherent to nbAdherents - 2 do
+		IF (compteEmpruntsParAdherent(tabEmprunt,nbEmprunts,adherent) = 0)
+			AND (trouverIndiceAdherent(tabAdherents, nbAdherents, adherent, indiceAdherent)) THEN
+		BEGIN
+			IF NOT (indiceAdherent+1 = nbAdherents) THEN
+			BEGIN
+				FOR ind := indiceAdherent TO nbAdherents - 2 DO
 					tabAdherents[ind] := tabAdherents[ind + 1];
-			end;
+			END;
 			nbAdherents := nbAdherents - 1;
 			supprimerAdherent := true;
-		end;
+		END;
 	END;
 	
 	FUNCTION trouverIndiceAdherent(tabAdherents:TypeTabAdherents; var nbAdherents:INTEGER; adherent:Tadherent; var indiceRetour : INTEGER) : BOOLEAN;
 	VAR
-		ind : integer;
+		ind : INTEGER;
 	BEGIN
 		trouverIndiceAdherent := false;
-		for ind := 0 to nbAdherents - 1 do
-			if tabAdherents[ind].codeAdherent = adherent.codeAdherent then
-			begin
+		FOR ind := 0 TO nbAdherents - 1 DO
+			IF tabAdherents[ind].codeAdherent = adherent.codeAdherent THEN
+			BEGIN
 				indiceRetour := ind;
 				trouverIndiceAdherent := true;
-			end;
+			END;
 	END;
 	
 	FUNCTION trouverAdherentParCode(tabAdherents:TypeTabAdherents; var nbAdherents:INTEGER; codeAdherent:STRING; var adherentTrouve:Tadherent) : BOOLEAN;
 	VAR
-		ind : integer;
+		ind : INTEGER;
 	BEGIN
 		trouverAdherentParCode := false;
-		for ind := 0 to nbAdherents - 1 do
-			if tabAdherents[ind].codeAdherent = codeAdherent then
-			begin
+		FOR ind := 0 TO nbAdherents - 1 DO
+			IF tabAdherents[ind].codeAdherent = codeAdherent THEN
+			BEGIN
 				adherentTrouve := tabAdherents[ind];
 				trouverAdherentParCode := true;
-			end;
+			END;
 	END;
 	// THIBAULT
 	FUNCTION emprunterLivre(var tabEmprunts:TypeTabEmprunts; var nbEmprunts:INTEGER; livre:Tlivre; adherent:Tadherent;dateEmprunt:Tdate):BOOLEAN;
