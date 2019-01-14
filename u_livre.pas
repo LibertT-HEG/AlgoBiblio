@@ -118,13 +118,13 @@ IMPLEMENTATION
 	PROCEDURE afficherEmprunt(emprunt:Temprunt);
 	BEGIN
 		WRITELN('Numéro de l''emprunt : ', emprunt.numeroEmprunt);
-		WRITELN('Livre emprunté :');
+		WRITELN('Livre emprunte :');
 		WRITELN('- ISBN : ', emprunt.livre.isbn);
 		WRITELN('- Code auteur : ', emprunt.livre.codeAuteur);
 		WRITELN('- Nombre de pages : ', emprunt.livre.nbPages);
 		WRITELN('- Nombre d''exemplaires : ', emprunt.livre.nbExemplaires);
-		WRITELN('Emprunté par : ', emprunt.adherent.prenom, ' ', emprunt.adherent.nom);
-		WRITELN('Emprunté le : ', emprunt.dateEmprunt.jour,'.',emprunt.dateEmprunt.mois,'.',emprunt.dateEmprunt.annee);
+		WRITELN('Emprunte par : ', emprunt.adherent.prenom, ' ', emprunt.adherent.nom);
+		WRITELN('Emprunte le : ', emprunt.dateEmprunt.jour,'.',emprunt.dateEmprunt.mois,'.',emprunt.dateEmprunt.annee);
 
 	END;
 	
