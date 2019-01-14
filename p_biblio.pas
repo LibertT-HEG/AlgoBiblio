@@ -138,9 +138,9 @@ BEGIN
 	u_biblio.initBiblio(biblio);
 
 	chargeDonneesInitiales(biblio, adherent, livre);
-	
 	REPEAT
 		BEGIN
+			continuer := 'o';
 			WRITELN('Que souhaitez-vous faire ?');
 			WRITELN('1. Emprunter un livre');
 			WRITELN('2. Rendre un livre');
@@ -175,34 +175,52 @@ BEGIN
 								codeAdherent,
 								adherent);
 							IF NOT trouve THEN
-								WRITELN('Le code saisi ne correspond a aucun adherent. Reessayez.');
-						UNTIL trouve;
+							BEGIN
+								WRITE('Le code saisi ne correspond a aucun adherent. ');
+								REPEAT
+									WRITE('Reessayer ? (o/n) : ');
+									READLN(continuer);
+								UNTIL (continuer = 'n') OR (continuer = 'o');
+							END;					
+						UNTIL trouve OR (continuer = 'n');
 						
-						REPEAT
-							WRITE('Saisissez l''ISBN du livre a emprunter : ');
-							READLN(isbn);
-							trouve := u_biblio.trouverLivreParISBN(
-								biblio.tabLivres,
-								biblio.nbLivres,
-								isbn,
-								livre
-							);
-							IF NOT trouve THEN
-								WRITELN('L''ISBN saisi n''existe pas dans la bibliotheque. Reessayez.');
-						UNTIL trouve;
+						IF continuer = 'o' THEN
+						BEGIN
+							REPEAT
+								WRITE('Saisissez l''ISBN du livre a emprunter : ');
+								READLN(isbn);
+								trouve := u_biblio.trouverLivreParISBN(
+									biblio.tabLivres,
+									biblio.nbLivres,
+									isbn,
+									livre
+								);
+								IF NOT trouve THEN								
+								BEGIN
+									WRITE('L''ISBN saisi n''existe pas dans la bibliotheque. ');
+									REPEAT
+										WRITE('Reessayer ? (o/n) : ');
+										READLN(continuer);
+									UNTIL (continuer = 'n') OR (continuer = 'o');
+								END;
+							UNTIL trouve OR (continuer = 'n');
 
-						GetDate(Word(date.annee), Word(date.mois), Word(date.jour), dummyWord);
+							IF continuer = 'o' THEN
+							BEGIN
+								GetDate(Word(date.annee), Word(date.mois), Word(date.jour), dummyWord);
 
-						IF u_biblio.emprunterLivre(
-							biblio.tabEmprunts,
-							biblio.nbEmprunts,
-							livre,
-							adherent, 
-							date
-						) THEN
-							WRITELN('L''emprunt du livre "', livre.titre, '" a ete fait avec succes.')
-						ELSE
-							WRITELN('Ce livre n''est pas disponible.');
+								IF u_biblio.emprunterLivre(
+									biblio.tabEmprunts,
+									biblio.nbEmprunts,
+									livre,
+									adherent, 
+									date
+								) THEN
+									WRITELN('L''emprunt du livre "', livre.titre, '" a ete fait avec succes.')
+								ELSE
+									WRITELN('Ce livre n''est pas disponible.');
+							END;
+						END;
 					END;
 				2 : BEGIN
 						printTitre('Rendre un livre');
@@ -217,17 +235,26 @@ BEGIN
 								numEmprunt
 							);
 							IF NOT trouve THEN
-								WRITELN('Ce numero d''emprunt ne correspond pas a un emprunt de la bibliotheque. Reessayez.');
-						UNTIL trouve;
+							BEGIN
+								WRITE('Ce numero d''emprunt ne correspond pas a un emprunt de la bibliotheque. ');
+								REPEAT
+									WRITE('Reessayer ? (o/n) : ');
+									READLN(continuer);
+								UNTIL (continuer = 'n') OR (continuer = 'o');
+							END;
+						UNTIL trouve OR (continuer = 'n');
 
-						IF u_biblio.rendreLivre(
-							biblio.tabEmprunts,
-							biblio.nbEmprunts,
-							emprunt
-						) THEN
-							WRITELN('Le livre "', emprunt.livre.titre, '" a bien ete rendu.')
-						ELSE
-							WRITELN('Un probleme est survenu dans le rendu du livre.');
+						IF continuer = 'o' THEN
+						BEGIN
+							IF u_biblio.rendreLivre(
+								biblio.tabEmprunts,
+								biblio.nbEmprunts,
+								emprunt
+							) THEN
+								WRITELN('Le livre "', emprunt.livre.titre, '" a bien ete rendu.')
+							ELSE
+								WRITELN('Un probleme est survenu dans le rendu du livre.');
+						END;
 					END;
 				3 : BEGIN
 						printTitre('Verifier la disponibilite d''un livre');
@@ -241,18 +268,27 @@ BEGIN
 								isbn,
 								livre
 							);
-							IF NOT trouve THEN
-								WRITELN('L''ISBN saisi n''existe pas dans la bibliotheque. Reessayez.');
-						UNTIL trouve;
+							IF NOT trouve THEN								
+							BEGIN
+								WRITE('L''ISBN saisi n''existe pas dans la bibliotheque. ');
+								REPEAT
+									WRITE('Reessayer ? (o/n) : ');
+									READLN(continuer);
+								UNTIL (continuer = 'n') OR (continuer = 'o');
+							END;
+						UNTIL trouve OR (continuer = 'n');
 
-						IF u_livre.estDisponible(
-							livre,
-							biblio.tabEmprunts,
-							biblio.nbEmprunts
-						) THEN
-							WRITELN('Le livre "', livre.titre, '" est disponible.')
-						ELSE
-							WRITELN('Le livre "', livre.titre, '" n''est pas disponible.');
+						IF continuer = 'o' THEN
+						BEGIN
+							IF u_livre.estDisponible(
+								livre,
+								biblio.tabEmprunts,
+								biblio.nbEmprunts
+							) THEN
+								WRITELN('Le livre "', livre.titre, '" est disponible.')
+							ELSE
+								WRITELN('Le livre "', livre.titre, '" n''est pas disponible.');
+						END;
 					END;
 				4 : BEGIN						
 						printTitre('Ajouter un livre a la bibliotheque');	
@@ -287,18 +323,26 @@ BEGIN
 								isbn,
 								livre
 							);
-							IF NOT trouve THEN
-								WRITELN('L''ISBN saisi n''existe pas dans la bibliotheque. Reessayez.');
-						UNTIL trouve;
-						u_biblio.trouverIndiceLivre(biblio.tabLivres, biblio.nbLivres, livre, indiceLivre);
-						u_livre.ajouterExemplaire(biblio.tabLivres[indiceLivre]);
+							IF NOT trouve THEN								
+							BEGIN
+								WRITE('L''ISBN saisi n''existe pas dans la bibliotheque. ');
+								REPEAT
+									WRITE('Reessayer ? (o/n) : ');
+									READLN(continuer);
+								UNTIL (continuer = 'n') OR (continuer = 'o');
+							END;
+						UNTIL trouve OR (continuer = 'n');
+
+						IF continuer = 'o' THEN
+						BEGIN
+							u_biblio.trouverIndiceLivre(biblio.tabLivres, biblio.nbLivres, livre, indiceLivre);
+							u_livre.ajouterExemplaire(biblio.tabLivres[indiceLivre]);
+						END;
 					END;
 				6 : BEGIN
 						printTitre('Ajouter un nouvel adherent');
 
 						adherent := u_adherent.saisirAdherent();
-						// TODO: peut-etre faire un check si tout a bien fonctionne
-						// Tout doux...
 						u_biblio.ajouterNouvelAdherent(biblio.tabAdherents, biblio.nbAdherents, adherent);
 
 					END;
@@ -314,11 +358,20 @@ BEGIN
 								isbn,
 								livre
 							);
-							IF NOT trouve THEN
-								WRITELN('L''ISBN saisi n''existe pas dans la bibliotheque. Reessayez.');
-						UNTIL trouve;
+							IF NOT trouve THEN								
+							BEGIN
+								WRITE('L''ISBN saisi n''existe pas dans la bibliotheque. ');
+								REPEAT
+									WRITE('Reessayer ? (o/n) : ');
+									READLN(continuer);
+								UNTIL (continuer = 'n') OR (continuer = 'o');
+							END;
+						UNTIL trouve OR (continuer = 'n');
 
-						u_livre.afficherLivre(livre);
+						IF continuer = 'o' THEN
+						BEGIN
+							u_livre.afficherLivre(livre);
+						END;
 					END;
 				8 : BEGIN
 						printTitre('Recherche et affichage d''emprunt');
@@ -332,16 +385,25 @@ BEGIN
 								emprunt,
 								numEmprunt
 							);
-							IF NOT trouve THEN
-								WRITELN('Ce numero d''emprunt ne correspond pas a un emprunt de la bibliotheque. Reessayez.');
-						UNTIL trouve;
+							IF NOT trouve THEN								
+							BEGIN
+								WRITE('Ce numero d''emprunt ne correspond pas a un emprunt de la bibliotheque. ');
+								REPEAT
+									WRITE('Reessayer ? (o/n) : ');
+									READLN(continuer);
+								UNTIL (continuer = 'n') OR (continuer = 'o');
+							END;
+						UNTIL trouve OR (continuer = 'n');
 
-						u_livre.afficherEmprunt(emprunt);
+						IF continuer = 'o' THEN
+						BEGIN
+							u_livre.afficherEmprunt(emprunt);
+						END;
 					END;
 				9 : BEGIN
 						printTitre('Recherche et affichage d''adherent');
 
-						WRITELN('Saisir code adherent :');
+						WRITE('Saisir code adherent : ');
 						READLN(codeAdherent);
 						if(u_biblio.trouverAdherentParCode(biblio.tabAdherents, biblio.nbAdherents, codeAdherent, adherent)) then
 							u_adherent.afficherAdherent(adherent)
@@ -351,7 +413,7 @@ BEGIN
 				10 : BEGIN
 						printTitre('Supprimer un exemplaire d''un livre');
 
-						WRITELN('Saisir ISBN livre :');
+						WRITE('Saisir ISBN livre : ');
 						READLN(isbn);
 						if(u_biblio.trouverLivreParISBN(biblio.tabLivres, biblio.nbLivres, isbn, livre)) then
 							if u_livre.supprimerExemplaire(livre, biblio.tabEmprunts, biblio.nbEmprunts) then
@@ -364,7 +426,7 @@ BEGIN
 				11 : BEGIN
 						printTitre('Supprimer un livre');
 
-						WRITELN('Saisir ISBN livre :');
+						WRITE('Saisir ISBN livre : ');
 						READLN(isbn);
 						if(u_biblio.trouverLivreParISBN(biblio.tabLivres, biblio.nbLivres, isbn, livre)) then
 							if u_biblio.supprimerLivre(biblio.tabLivres, biblio.nbLivres, livre, biblio.tabEmprunts, biblio.nbEmprunts) then
@@ -377,7 +439,7 @@ BEGIN
 				12 : BEGIN
 						printTitre('Supprimer un adherent');
 						
-						WRITELN('Saisir code adherent :');
+						WRITE('Saisir code adherent : ');
 						READLN(codeAdherent);
 						if(u_biblio.trouverAdherentParCode(biblio.tabAdherents, biblio.nbAdherents, codeAdherent, adherent)) then
 							if u_biblio.supprimerAdherent(biblio.tabAdherents, biblio.nbAdherents, adherent, biblio.tabEmprunts, biblio.nbEmprunts) then
@@ -390,11 +452,11 @@ BEGIN
 				13 : BEGIN
 						printTitre('Verifier si la bibliotheque est ouverte');
 						repeat
-							WRITELN('Saisir jour (Lundi, Mardi, ...)');
+							WRITE('Saisir jour (Lundi, Mardi, ...) : ');
 							READLN(jourOuvert);
 						until ((LowerCase(jourOuvert) = 'lundi') OR (LowerCase(jourOuvert) = 'mardi') OR (LowerCase(jourOuvert) = 'mercredi') OR (LowerCase(jourOuvert) = 'jeudi') OR (LowerCase(jourOuvert) = 'vendredi') OR (LowerCase(jourOuvert) = 'samedi') OR (LowerCase(jourOuvert) = 'dimanche'));
 						repeat
-							WRITELN('Saisir Heure (9, 12, 13, ...)');
+							WRITE('Saisir Heure (9, 12, 13, ...) : ');
 							READLN(heureOuvert);
 						until ((heureOuvert >= 0) AND (heureOuvert <= 23));
 						if(u_biblio.estOuverte(jourOuvert,heureOuvert)) then
