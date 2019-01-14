@@ -473,7 +473,7 @@ BEGIN
 						
 					END;
 			END;
-			
+			writeln('');
 		END
 	UNTIL (choix = 0);
 END.
