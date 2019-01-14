@@ -216,7 +216,10 @@ BEGIN
 									adherent, 
 									date
 								) THEN
-									WRITELN('L''emprunt du livre "', livre.titre, '" a ete fait avec succes.')
+								BEGIN
+									WRITELN('L''emprunt du livre "', livre.titre, '" a ete fait avec succes.');
+									WRITELN('Le numero de l''emprunt est ', compteurEmprunt, '.');
+								END
 								ELSE
 									WRITELN('Ce livre n''est pas disponible.');
 							END;
