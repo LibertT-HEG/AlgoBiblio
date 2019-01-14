@@ -340,13 +340,21 @@ BEGIN
 						BEGIN
 							u_biblio.trouverIndiceLivre(biblio.tabLivres, biblio.nbLivres, livre, indiceLivre);
 							u_livre.ajouterExemplaire(biblio.tabLivres[indiceLivre]);
+							WRITELN('Un exemplaire du livre ', livre.titre, ' a ete ajoute.');
 						END;
 					END;
 				6 : BEGIN
 						printTitre('Ajouter un nouvel adherent');
 
 						adherent := u_adherent.saisirAdherent();
-						u_biblio.ajouterNouvelAdherent(biblio.tabAdherents, biblio.nbAdherents, adherent);
+						IF u_biblio.ajouterNouvelAdherent(
+							biblio.tabAdherents,
+							biblio.nbAdherents,
+							adherent
+						) THEN
+								WRITELN('L''adherent "', adherent.prenom, ' ', adherent.nom, '" a ete ajoute a la bibliotheque.')
+							ELSE
+								WRITELN('Un probleme est survenu dans l''ajout de l''adherent.');	
 
 					END;
 				7 : BEGIN
@@ -408,9 +416,14 @@ BEGIN
 
 						WRITE('Saisir code adherent : ');
 						READLN(codeAdherent);
-						if(u_biblio.trouverAdherentParCode(biblio.tabAdherents, biblio.nbAdherents, codeAdherent, adherent)) then
+						IF u_biblio.trouverAdherentParCode(
+							biblio.tabAdherents,
+							biblio.nbAdherents,
+							codeAdherent,
+							adherent
+						) THEN
 							u_adherent.afficherAdherent(adherent)
-						else
+						ELSE
 							WRITELN('Erreur. Le code adherent saisi n''existe pas.');
 					END;
 				10 : BEGIN
@@ -418,12 +431,12 @@ BEGIN
 
 						WRITE('Saisir ISBN livre : ');
 						READLN(isbn);
-						if(u_biblio.trouverLivreParISBN(biblio.tabLivres, biblio.nbLivres, isbn, livre)) then
-							if u_livre.supprimerExemplaire(livre, biblio.tabEmprunts, biblio.nbEmprunts) then
+						IF (u_biblio.trouverLivreParISBN(biblio.tabLivres, biblio.nbLivres, isbn, livre)) THEN
+							IF u_livre.supprimerExemplaire(livre, biblio.tabEmprunts, biblio.nbEmprunts) THEN
 								WRITELN('Exemplaire supprime.')
-							else
+							ELSE
 								WRITELN('Impossible de supprimer un exemplaire de ce livre. Aucun exemplaire disponible ou existant')
-						else
+						ELSE
 							WRITELN('Erreur. L''ISBN saisi n''existe pas.');
 					END;
 				11 : BEGIN
@@ -431,12 +444,12 @@ BEGIN
 
 						WRITE('Saisir ISBN livre : ');
 						READLN(isbn);
-						if(u_biblio.trouverLivreParISBN(biblio.tabLivres, biblio.nbLivres, isbn, livre)) then
-							if u_biblio.supprimerLivre(biblio.tabLivres, biblio.nbLivres, livre, biblio.tabEmprunts, biblio.nbEmprunts) then
+						IF(u_biblio.trouverLivreParISBN(biblio.tabLivres, biblio.nbLivres, isbn, livre)) THEN
+							IF u_biblio.supprimerLivre(biblio.tabLivres, biblio.nbLivres, livre, biblio.tabEmprunts, biblio.nbEmprunts) THEN
 								WRITELN('Livre supprime.')
-							else
+							ELSE
 								WRITELN('Impossible de supprimer ce livre. Il se peut que des exemplaires soient actuellement empruntes.')
-						else
+						ELSE
 							WRITELN('Erreur. L''ISBN saisi n''existe pas.');
 					END;
 				12 : BEGIN
@@ -444,27 +457,35 @@ BEGIN
 						
 						WRITE('Saisir code adherent : ');
 						READLN(codeAdherent);
-						if(u_biblio.trouverAdherentParCode(biblio.tabAdherents, biblio.nbAdherents, codeAdherent, adherent)) then
-							if u_biblio.supprimerAdherent(biblio.tabAdherents, biblio.nbAdherents, adherent, biblio.tabEmprunts, biblio.nbEmprunts) then
+						IF (u_biblio.trouverAdherentParCode(biblio.tabAdherents, biblio.nbAdherents, codeAdherent, adherent)) THEN
+							IF u_biblio.supprimerAdherent(biblio.tabAdherents, biblio.nbAdherents, adherent, biblio.tabEmprunts, biblio.nbEmprunts) THEN
 								WRITELN('Adherent supprime.')
-							else
+							ELSE
 								WRITELN('Impossible de supprimer cet adherent. Il se peut que des livres soient actuellement empruntes par cet adherent.')
-						else
+						ELSE
 							WRITELN('Erreur. Le code adherent saisi n''existe pas.');
 					END;
 				13 : BEGIN
 						printTitre('Verifier si la bibliotheque est ouverte');
-						repeat
+						REPEAT
 							WRITE('Saisir jour (Lundi, Mardi, ...) : ');
 							READLN(jourOuvert);
-						until ((LowerCase(jourOuvert) = 'lundi') OR (LowerCase(jourOuvert) = 'mardi') OR (LowerCase(jourOuvert) = 'mercredi') OR (LowerCase(jourOuvert) = 'jeudi') OR (LowerCase(jourOuvert) = 'vendredi') OR (LowerCase(jourOuvert) = 'samedi') OR (LowerCase(jourOuvert) = 'dimanche'));
-						repeat
+						UNTIL ((LowerCase(jourOuvert) = 'lundi')
+							OR (LowerCase(jourOuvert) = 'mardi')
+							OR (LowerCase(jourOuvert) = 'mercredi')
+							OR (LowerCase(jourOuvert) = 'jeudi')
+							OR (LowerCase(jourOuvert) = 'vendredi')
+							OR (LowerCase(jourOuvert) = 'samedi')
+							OR (LowerCase(jourOuvert) = 'dimanche'));
+							
+						REPEAT
 							WRITE('Saisir Heure (9, 12, 13, ...) : ');
 							READLN(heureOuvert);
-						until ((heureOuvert >= 0) AND (heureOuvert <= 23));
-						if(u_biblio.estOuverte(jourOuvert,heureOuvert)) then
+						UNTIL ((heureOuvert >= 0) AND (heureOuvert <= 23));
+
+						IF (u_biblio.estOuverte(jourOuvert,heureOuvert)) THEN
 							WRITELN('La bibliotheque est ouverte.')
-						else
+						ELSE
 							WRITELN('La bibliotheque est fermee ou la saisie est incorrecte.');
 					END;
 				14 : BEGIN
@@ -476,7 +497,7 @@ BEGIN
 						
 					END;
 			END;
-			writeln('');
+			WRITELN('');
 		END
 	UNTIL (choix = 0);
 END.
