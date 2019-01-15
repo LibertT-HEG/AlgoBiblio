@@ -142,7 +142,7 @@ BEGIN
 	REPEAT
 		BEGIN
 			continuer := 'o';
-			WRITELN('Que souhaitez-vous faire ?');
+			printTitre('Que souhaitez-vous faire ?');
 			WRITELN('1. Emprunter un livre');
 			WRITELN('2. Rendre un livre');
 			WRITELN('3. Verifier la disponibilite d''un livre');
