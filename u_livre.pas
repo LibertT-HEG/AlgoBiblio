@@ -134,10 +134,7 @@ IMPLEMENTATION
 	END;
 	
 	FUNCTION supprimerExemplaire(var livre:Tlivre; tabEmprunt:TypeTabEmprunts; nbEmprunts:INTEGER):BOOLEAN;
-	VAR
-		nbLivreEmprunt : INTEGER;
 	BEGIN
-		nbLivreEmprunt  := 0;
 		supprimerExemplaire := false;
 		IF estDisponible(livre,tabEmprunt,nbEmprunts) THEN
 		BEGIN
