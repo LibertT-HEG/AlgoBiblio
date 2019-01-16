@@ -435,7 +435,11 @@ BEGIN
 						READLN(isbn);
 						IF (u_biblio.trouverLivreParISBN(biblio.tabLivres, biblio.nbLivres, isbn, livre)) THEN
 							IF u_livre.supprimerExemplaire(livre, biblio.tabEmprunts, biblio.nbEmprunts) THEN
-								WRITELN('Exemplaire supprime.')
+							BEGIN
+								trouverIndiceLivre(biblio.tabLivres, biblio.nbLivres, livre, indiceLivre);
+								biblio.tabLivres[indiceLivre] := livre;
+								WRITELN('Exemplaire du livre "', livre.titre , '" supprime.')
+							END
 							ELSE
 								WRITELN('Impossible de supprimer un exemplaire de ce livre. Aucun exemplaire disponible ou existant')
 						ELSE
@@ -448,7 +452,7 @@ BEGIN
 						READLN(isbn);
 						IF(u_biblio.trouverLivreParISBN(biblio.tabLivres, biblio.nbLivres, isbn, livre)) THEN
 							IF u_biblio.supprimerLivre(biblio.tabLivres, biblio.nbLivres, livre, biblio.tabEmprunts, biblio.nbEmprunts) THEN
-								WRITELN('Livre supprime.')
+								WRITELN('Livre "', livre.titre , '" supprime.')
 							ELSE
 								WRITELN('Impossible de supprimer ce livre. Il se peut que des exemplaires soient actuellement empruntes.')
 						ELSE
@@ -461,7 +465,7 @@ BEGIN
 						READLN(codeAdherent);
 						IF (u_biblio.trouverAdherentParCode(biblio.tabAdherents, biblio.nbAdherents, codeAdherent, adherent)) THEN
 							IF u_biblio.supprimerAdherent(biblio.tabAdherents, biblio.nbAdherents, adherent, biblio.tabEmprunts, biblio.nbEmprunts) THEN
-								WRITELN('Adherent supprime.')
+								WRITELN('Adherent "', adherent.prenom, ' ' , adherent.nom ,'" supprime.')
 							ELSE
 								WRITELN('Impossible de supprimer cet adherent. Il se peut que des livres soient actuellement empruntes par cet adherent.')
 						ELSE
