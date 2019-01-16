@@ -113,6 +113,7 @@ IMPLEMENTATION
 		creerEmprunt.numeroEmprunt := compteurEmprunt;
 		creerEmprunt.livre := livre;
 		creerEmprunt.dateEmprunt := date;
+		creerEmprunt.adherent := adherent;
 	END;
 	
 	PROCEDURE afficherEmprunt(emprunt:Temprunt);
